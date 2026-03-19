@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robert Müllers | Portfolio</title>
+    <link rel="stylesheet" href="robertportfolio.css">
+</head>
+<body>
+
+    <header>
+        <h1>Robert Müllers</h1>
+        <nav class="navbar">
+            <ul>
+        
+               <li><a href="#" id="about-link">about</a></li>
+                <li><a href="mailto:eschlutius@yahoo.com">contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+
+<div id="about-section" class="about-collapse">
+    <div class="about-content">
+        <p>Robert Müllers is a contemporary painter, based in Düsseldorf specializing in colourful, large-scale oil works.</p>
+        
+    </div>
+</div>
+
+    <a href="#top" class="back-to-top">back to top</a>
+
+<main>
+    <section class="project-item Hirtenbild">
+        <figure>
+            <img src="Der Hirte 140x210 cm.jpeg" alt="Oil painting of a shepherd with goats">
+            <figcaption>
+                <span class="cap-title">Hirtenbild mit Ziegen</span><br>
+                <span class="cap-details">Oil on Canvas, 2025</span>
+            </figcaption>
+        </figure>
+    </section>
+
+    <section class="project-item within">
+        <figure>
+            <img src="withinwithoutyou.jpg" alt="Abstract oil painting titled Within Without You">
+            <figcaption>
+                <span class="cap-title">Within without you</span><br>
+                <span class="cap-details">Oil on Canvas, 2025</span>
+            </figcaption>
+        </figure>
+    </section>
+
+    <section class="project-item Huhn-Container">
+        <figure>
+            <img src="IMG_0001.JPG" alt="Process shot of painting">
+        </figure>
+        <figure>
+            <img src="IMG_0003.JPG" alt="Robert and a chicken oil painting">
+            <figcaption>
+                <span class="cap-title">Robert und das Huhn</span><br>
+                <span class="cap-details">Oil on Canvas, 2025</span>
+            </figcaption>
+        </figure>
+    </section>
+</main>
+
+    <footer>
+        <p>&copy; 2025 Robert Müllers</p>
+    </footer>
+
+</body>
+<script>
+    const aboutLink = document.getElementById('about-link');
+    const aboutSection = document.getElementById('about-section');
+
+    aboutLink.addEventListener('click', (e) => {
+        e.preventDefault(); // Stops the page from refreshing/jumping
+        aboutSection.classList.toggle('show');
+    });
+</script>
+
+<script>
+    const backToTop = document.querySelector('.back-to-top');
+
+    window.addEventListener('scroll', () => {
+        // Show the link after scrolling down 400px
+        if (window.pageYOffset > 400) {
+            backToTop.style.opacity = "1";
+            backToTop.style.pointerEvents = "auto";
+        } else {
+            backToTop.style.opacity = "0";
+            backToTop.style.pointerEvents = "none";
+        }
+    });
+</script>
+</html>

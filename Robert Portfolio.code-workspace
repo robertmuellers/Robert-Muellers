@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../Downloads/Robert Website Fotos"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Robert Portfolio"
+	}
+}

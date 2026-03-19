@@ -1,0 +1,170 @@
+/* 1. Global Styles & Layout */
+body {
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* 2. Header & Navigation */
+h1 {
+    margin: 5% 0 10px 5%;
+    color:rgb(61, 54, 40);;
+    font-size: medium;
+    letter-spacing: 0.2pt;
+    font-weight: normal;
+}
+
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0 0 0 5%;
+    padding: 0;
+    display: flex;
+    gap: 1rem; 
+}
+
+.navbar a {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: small;
+    color: rgb(61, 54, 40);;
+    text-decoration: none; /* Removes the default blue underline */
+    letter-spacing: -0.5pt;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+/* 3. Artwork Containers (Grouped for Efficiency) */
+.project-item, 
+.Huhn-Container, 
+.Hirtenbild, 
+.within {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+figure {
+    margin: 40px 0;
+    text-align: left; /* Usually looks more "gallery-esque" than center */
+}
+
+figure img {
+    width: 100%;
+    height: auto;
+    display: block; /* Prevents tiny gaps at the bottom of images */
+}
+
+/* Matches your H1 style */
+figcaption .cap-title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
+    letter-spacing: 0.2pt;
+    color: rgb(61, 54, 40);;
+    text-transform: none; /* Adjust to 'uppercase' if you want a bolder look */
+}
+
+/* Matches your Navbar Link style */
+figcaption .cap-details {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: small;
+    letter-spacing: -0.5pt;
+    color: rgb(61, 54, 40);; /* Slightly lighter for hierarchy */
+}
+
+/* Optional: Adjust the spacing between the image and the text */
+figcaption {
+    margin-top: 12px;
+    line-height: 1.6;
+    text-align: left; /* Aligns with the left edge of your 600px container */
+}
+/* 4. Footer */
+footer, .footer {
+    margin: 100px 0 50px 5%;
+    color: rgb(61, 54, 40);
+    font-size: small;
+    letter-spacing: 0.2pt;
+} 
+
+/* The container */
+.about-collapse {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    /* When closing: delay the fade so the slide finishes first */
+    transition: max-height 0.5s ease-in-out, opacity 0.2s ease 0.2s;
+}
+
+/* The visible state */
+.about-collapse.show {
+    max-height: 500px; 
+    opacity: 1;
+    background-color: #f4f4f4;
+    /* When opening: both start immediately */
+    transition: max-height 0.5s ease-in-out, opacity 0.5s ease;
+}
+
+/* Your original text styles kept exactly the same */
+.about-content {
+    font-family: 'Courier New', Courier, monospace;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    color: rgb(61, 54, 40);
+    font-size: small;
+    letter-spacing: -0.2pt;
+    font-weight: normal; 
+}
+
+html {
+    scroll-behavior: smooth; /* This makes the "jump" a smooth slide instead */
+}
+
+.back-to-top {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    
+    /* Styling to match your aesthetic */
+    text-decoration: none;
+    color: rgb(61, 54, 40);
+    background-color: rgba(244, 244, 244, 0.8);
+    padding: 10px 15px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    border: 1px solid #ddd;
+    z-index: 2000;
+    transition: opacity 0.3s ease;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    
+    /* Typography to match your 'About' section */
+    font-family: 'Courier New', Courier, monospace;
+    font-size: small;
+    text-decoration: none;
+    color: rgb(61, 54, 40);
+    letter-spacing: -0.2pt;
+    
+    /* Background & Border - keeping it very light */
+    background-color: rgba(255, 255, 255, 0);
+    padding: 5px 10px;
+    border: 1px solid transparent; /* invisible until hover */
+    z-index: 2000;
+    transition: all 0.3s ease;
+  
+}
+
+.back-to-top:hover {
+    border-color: #dddddd00;
+    color: #000;
+}
