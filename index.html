@@ -14,19 +14,25 @@
             <ul>
         
                <li><a href="#" id="about-link">about</a></li>
-                <li><a href="mailto:robert@stippmilch.de">contact</a></li>
+                <li><a href="#"id="contact-link">contact</a></li>
             </ul>
         </nav>
     </header>
 
 
-
 <div id="about-section" class="about-collapse">
     <div class="about-content">
         <p>Robert Müllers is a contemporary painter, based in Düsseldorf specializing in colourful, large-scale oil works.</p>
-        
     </div>
 </div>
+
+<div id="contact-section" class="about-collapse">
+    <div class="contact-content">
+        <p>robertmuellers@stippmilch.de</p>
+         <p>@robert.muellers</p>
+    </div>
+</div>
+
 
     <a href="#top" class="back-to-top">back to top</a>
 
@@ -36,7 +42,7 @@
             <img src="Der Hirte 140x210 cm.jpeg" alt="Oil painting of a shepherd with goats">
             <figcaption>
                 <span class="cap-title">Hirtenbild mit Ziegen</span><br>
-                <span class="cap-details">Oil on Canvas, 2025, 170 x 200cm </span>
+                <span class="cap-details">Oil on Canvas, 2025</span>
             </figcaption>
         </figure>
     </section>
@@ -46,7 +52,7 @@
             <img src="withinwithoutyou.jpg" alt="Abstract oil painting titled Within Without You">
             <figcaption>
                 <span class="cap-title">Within without you</span><br>
-                <span class="cap-details">Oil Chalk,Oil on Canvas, 2025, 100 x 125 cm </span>
+                <span class="cap-details">Oil on Canvas, 2025</span>
             </figcaption>
         </figure>
     </section>
@@ -59,7 +65,7 @@
             <img src="IMG_0003.JPG" alt="Robert and a chicken oil painting">
             <figcaption>
                 <span class="cap-title">Robert und das Huhn</span><br>
-                <span class="cap-details"> Pastell Chalk, 2025, 35 x 45 cm </span>
+                <span class="cap-details">Oil on Canvas, 2025</span>
             </figcaption>
         </figure>
     </section>
@@ -71,20 +77,37 @@
 
 </body>
 <script>
-    const aboutLink = document.getElementById('about-link');
-    const aboutSection = document.getElementById('about-section');
+    const navItems = [
+        { link: 'about-link', section: 'about-section' },
+        { link: 'contact-link', section: 'contact-section' }
+    ];
 
-    aboutLink.addEventListener('click', (e) => {
-        e.preventDefault(); // Stops the page from refreshing/jumping
-        aboutSection.classList.toggle('show');
+    navItems.forEach(item => {
+        const linkEl = document.getElementById(item.link);
+        const sectionEl = document.getElementById(item.section);
+
+        linkEl.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Check if clicked section is already open
+            const isCurrentlyOpen = sectionEl.classList.contains('show');
+
+            // Close ALL sections
+            document.querySelectorAll('.about-collapse').forEach(s => {
+                s.classList.remove('show');
+            });
+
+            // If it wasn't open, open it now
+            if (!isCurrentlyOpen) {
+                sectionEl.classList.add('show');
+            }
+        });
     });
 </script>
-
 <script>
+    // Back to Top Logic
     const backToTop = document.querySelector('.back-to-top');
-
     window.addEventListener('scroll', () => {
-        // Show the link after scrolling down 400px
         if (window.pageYOffset > 400) {
             backToTop.style.opacity = "1";
             backToTop.style.pointerEvents = "auto";
