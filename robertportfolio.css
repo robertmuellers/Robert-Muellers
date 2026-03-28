@@ -88,34 +88,29 @@ footer, .footer {
     letter-spacing: 0.2pt;
 } 
 
-/* The container */
+/* Collapsible Sections Base */
 .about-collapse {
     max-height: 0;
     overflow: hidden;
     opacity: 0;
-    /* When closing: delay the fade so the slide finishes first */
-    transition: max-height 0.5s ease-in-out, opacity 0.2s ease 0.2s;
-}
-
-/* The visible state */
-.about-collapse.show {
-    max-height: 500px; 
-    opacity: 1;
-    background-color: #f4f4f4;
-    /* When opening: both start immediately */
+    background-color: #f4f4f4; /* Matches body */
     transition: max-height 0.5s ease-in-out, opacity 0.5s ease;
 }
 
-/* Your original text styles kept exactly the same */
-.about-content {
+/* Open State for BOTH */
+.about-collapse.show {
+    max-height: 200px; 
+    opacity: 1;
+}
+
+/* Interior Text Styling for BOTH */
+.about-content, 
+.contact-content {
+    padding: 2rem 5%; /* Aligns with your 5% margin header */
     font-family: 'Courier New', Courier, monospace;
-    padding: 2rem;
-    max-width: 800px;
-    margin: 0 auto;
     color: rgb(61, 54, 40);
     font-size: small;
     letter-spacing: -0.2pt;
-    font-weight: normal; 
 }
 
 html {
