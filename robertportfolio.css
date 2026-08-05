@@ -68,7 +68,7 @@ figcaption .cap-title {
 
 /* Matches your Navbar Link style */
 figcaption .cap-details {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: small;
     letter-spacing: -0.5pt;
     color: rgb(61, 54, 40);; /* Slightly lighter for hierarchy */
