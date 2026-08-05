@@ -11,7 +11,6 @@ h1 {
     margin: 5% 0 10px 5%;
     color:rgb(61, 54, 40);;
     font-size: medium;
-    letter-spacing: 0.2pt;
     font-weight: normal;
 }
 
@@ -29,7 +28,6 @@ h1 {
     font-size: small;
     color: rgb(61, 54, 40);;
     text-decoration: none; /* Removes the default blue underline */
-    letter-spacing: -0.5pt;
 }
 
 .navbar a:hover {
@@ -61,7 +59,6 @@ figure img {
 figcaption .cap-title {
     font-family: Arial, Helvetica, sans-serif;
     font-size: small;
-    letter-spacing: 0.2pt;
     color: rgb(61, 54, 40);;
     text-transform: none; /* Adjust to 'uppercase' if you want a bolder look */
 }
@@ -70,7 +67,6 @@ figcaption .cap-title {
 figcaption .cap-details {
     font-family: Arial, Helvetica, sans-serif;
     font-size: small;
-    letter-spacing: -0.5pt;
     color: rgb(61, 54, 40);; /* Slightly lighter for hierarchy */
 }
 
@@ -85,7 +81,6 @@ footer, .footer {
     margin: 100px 0 50px 5%;
     color: rgb(61, 54, 40);
     font-size: small;
-    letter-spacing: 0.2pt;
 } 
 
 /* Collapsible Sections Base */
@@ -110,7 +105,6 @@ footer, .footer {
     font-family: Arial, Helvetica, sans-serif;
     color: rgb(61, 54, 40);
     font-size: small;
-    letter-spacing: -0.2pt;
 }
 
 html {
@@ -148,7 +142,6 @@ html {
     font-size: small;
     text-decoration: none;
     color: rgb(61, 54, 40);
-    letter-spacing: -0.2pt;
     
     /* Background & Border - keeping it very light */
     background-color: rgba(255, 255, 255, 0);
