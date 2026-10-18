@@ -3,23 +3,19 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-´
-.lora-<uniquifier> {
-  font-family: "Lora", serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-}
+    font-family: "Lora", Times, serif;
+    font-optical-sizing: auto;
+    font-weight: 400; /* Standard normal weight */
+    font-style: normal;
 }
 
 /* 2. Header & Navigation */
 h1 {
     margin: 5% 0 10px 5%;
-    color:rgb(61, 54, 40);;
+    color: rgb(61, 54, 40);
     font-size: medium;
     font-weight: normal;
 }
-
 
 .navbar ul {
     list-style-type: none;
@@ -30,17 +26,17 @@ h1 {
 }
 
 .navbar a {
-    font-family: Times New Roman, Times, serif;
+    font-family: "Lora", Times New Roman, Times, serif;
     font-size: small;
-    color: rgb(61, 54, 40);;
-    text-decoration: none; /* Removes the default blue underline */
+    color: rgb(61, 54, 40);
+    text-decoration: none; /* Removes default underline */
 }
 
 .navbar a:hover {
     text-decoration: underline;
 }
 
-/* 3. Artwork Containers (Grouped for Efficiency) */
+/* 3. Artwork Containers */
 .project-item, 
 .Huhn-Container, 
 .Hirtenbild, 
@@ -52,41 +48,40 @@ h1 {
 
 figure {
     margin: 40px 0;
-    text-align: left; /* Usually looks more "gallery-esque" than center */
+    text-align: left;
 }
 
 figure img {
     width: 100%;
     height: auto;
-    display: block; /* Prevents tiny gaps at the bottom of images */
+    display: block;
 }
 
-/* Matches your H1 style */
-figcaption .cap-title {
-    font-family: Times New Roman, Times, serif;
-    font-size: medium;
-    color: rgb(61, 54, 40);;
-    text-transform: none; /* Adjust to 'uppercase' if you want a bolder look */
-}
-
-/* Matches your Navbar Link style */
-figcaption .cap-details {
-    font-family: Times New Roman, Times, serif;
-    font-size: small;
-    color: rgb(61, 54, 40);; /* Slightly lighter for hierarchy */
-}
-
-/* Optional: Adjust the spacing between the image and the text */
 figcaption {
     margin-top: 12px;
     line-height: 1.6;
-    text-align: left; /* Aligns with the left edge of your 600px container */
+    text-align: left;
 }
+
+figcaption .cap-title {
+    font-family: "Lora", Times New Roman, Times, serif;
+    font-size: medium;
+    color: rgb(61, 54, 40);
+    text-transform: none;
+}
+
+figcaption .cap-details {
+    font-family: "Lora", Times New Roman, Times, serif;
+    font-size: small;
+    color: rgb(61, 54, 40);
+}
+
 /* 4. Footer */
 footer, .footer {
     margin: 100px 0 50px 5%;
     color: rgb(61, 54, 40);
     font-size: small;
+    font-family: "Lora", serif;
 } 
 
 /* Collapsible Sections Base */
@@ -94,44 +89,22 @@ footer, .footer {
     max-height: 0;
     overflow: hidden;
     opacity: 0;
-    background-color: #f4f4f4; /* Matches body */
+    background-color: #f4f4f4;
     transition: max-height 0.5s ease-in-out, opacity 0.5s ease;
 }
 
-/* Open State for BOTH */
 .about-collapse.show {
     max-height: 200px; 
     opacity: 1;
 }
 
-/* Interior Text Styling for BOTH */
+/* Interior Text Styling */
 .about-content, 
 .contact-content {
-    padding: 2rem 5%; /* Aligns with your 5% margin header */
-    font-family: Times New Roman, Times, serif;
+    padding: 2rem 5%;
+    font-family: "Lora", Times New Roman, Times, serif;
     color: rgb(61, 54, 40);
     font-size: small;
-}
-
-html {
-    scroll-behavior: smooth; /* This makes the "jump" a smooth slide instead */
-}
-
-.back-to-top {
-    position: fixed;
-    bottom: 40px;
-    right: 40px;
-    
-    /* Styling to match your aesthetic */
-    text-decoration: none;
-    color: rgb(61, 54, 40);
-    background-color: rgba(244, 244, 244, 0.8);
-    padding: 10px 15px;
-    font-family: Times New Roman, Times, serif;
-    font-size: 20px;
-    border: 1px solid #ddd;
-    z-index: 2000;
-    transition: opacity 0.3s ease;
 }
 
 html {
@@ -142,23 +115,18 @@ html {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    
-    /* Typography to match your 'About' section */
-    font-family: Times New Roman, Times, serif;
+    font-family: "Lora", Times New Roman, Times, serif;
     font-size: medium;
     text-decoration: none;
     color: rgb(61, 54, 40);
-    
-    /* Background & Border - keeping it very light */
     background-color: rgba(255, 255, 255, 0);
     padding: 5px 10px;
-    border: 1px solid transparent; /* invisible until hover */
+    border: 1px solid transparent;
     z-index: 2000;
     transition: all 0.3s ease;
-  
 }
 
 .back-to-top:hover {
-    border-color: #dddddd00;
+    border-color: transparent;
     color: #000;
 }
