@@ -1,33 +1,38 @@
+/* Google Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap');
+
 /* 1. Global Styles & Layout */
 body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
     font-family: "Cormorant Garamond", Times, serif;
-    text-align: center; /* Alles zentrieren */
+    text-align: center; /* Alles zentral ausrichten */
 }
 
 /* 2. Header & Navigation */
+header {
+    text-align: center;
+    margin-top: 5%;
+}
+
 h1 {
-    margin: 5% auto 10px auto;
+    margin: 0 0 10px 0;
     color: rgb(61, 54, 40);
     font-size: medium;
     font-weight: normal;
-    font-family: "Cormorant Garamond", Times, serif;
-    text-align: center;
 }
 
 .navbar ul {
     list-style-type: none;
-    margin: 0 auto;
+    margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center; /* Navigationslinks zentrieren */
+    justify-content: center; /* Navigation zentrieren */
     gap: 1rem; 
 }
 
 .navbar a {
-    font-family: "Cormorant Garamond", Times, serif;
     font-size: small;
     color: rgb(61, 54, 40);
     text-decoration: none;
@@ -45,11 +50,12 @@ h1 {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
+    text-align: center;
 }
 
 figure {
     margin: 40px 0;
-    text-align: center; /* Zentrierte Bildunterschriften */
+    text-align: center; /* Bildunterschriften zentrieren */
 }
 
 figure img {
@@ -63,32 +69,28 @@ figure img {
 figcaption {
     margin-top: 12px;
     line-height: 1.6;
-    text-align: center; /* Zentriert */
+    text-align: center;
 }
 
 figcaption .cap-title {
-    font-family: "Cormorant Garamond", Times, serif;
     font-size: medium;
     color: rgb(61, 54, 40);
-    text-transform: none;
 }
 
 figcaption .cap-details {
-    font-family: "Cormorant Garamond", Times, serif;
     font-size: small;
     color: rgb(61, 54, 40);
 }
 
 /* 4. Footer */
-footer, .footer {
-    margin: 100px auto 50px auto;
+footer {
+    margin: 100px 0 50px 0;
     color: rgb(61, 54, 40);
     font-size: small;
-    font-family: "Cormorant Garamond", serif;
     text-align: center;
 } 
 
-/* Collapsible Sections Base */
+/* Collapsible About Section */
 .about-collapse {
     max-height: 0;
     overflow: hidden;
@@ -102,16 +104,14 @@ footer, .footer {
     opacity: 1;
 }
 
-/* Interior Text Styling */
-.about-content, 
-.contact-content {
+.about-content {
     padding: 2rem 5%;
-    font-family: "Cormorant Garamond", Times, serif;
     color: rgb(61, 54, 40);
     font-size: small;
     text-align: center;
 }
 
+/* Smooth Scroll & Back to Top */
 html {
     scroll-behavior: smooth;
 }
@@ -120,18 +120,18 @@ html {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    font-family: "Cormorant Garamond", Times, serif;
-    font-size: medium;
     text-decoration: none;
     color: rgb(61, 54, 40);
     background-color: rgba(255, 255, 255, 0);
     padding: 5px 10px;
+    font-size: medium;
     border: 1px solid transparent;
     z-index: 2000;
-    transition: all 0.3s ease;
+    transition: opacity 0.3s ease;
+    opacity: 0; /* Gesteuert durch dein JavaScript */
+    pointer-events: none;
 }
 
 .back-to-top:hover {
-    border-color: transparent;
     color: #000;
 }
