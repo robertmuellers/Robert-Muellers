@@ -3,7 +3,7 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-    font-family: "Lora", Times, serif;
+    font-family: "Cormorant Garamond", Times, serif;
     font-optical-sizing: auto;
     font-weight: 400; /* Standard normal weight */
     font-style: normal;
@@ -15,6 +15,7 @@ h1 {
     color: rgb(61, 54, 40);
     font-size: medium;
     font-weight: normal;
+    font-family: "Cormorant Garamond", Times, serif;
 }
 
 .navbar ul {
@@ -26,7 +27,7 @@ h1 {
 }
 
 .navbar a {
-    font-family: "Lora", Times New Roman, Times, serif;
+    font-family: "Cormorant Garamond", Times New Roman, Times, serif;
     font-size: small;
     color: rgb(61, 54, 40);
     text-decoration: none; /* Removes default underline */
@@ -64,14 +65,14 @@ figcaption {
 }
 
 figcaption .cap-title {
-    font-family: "Lora", Times New Roman, Times, serif;
+    font-family: "Cormorant Garamond", Times New Roman, Times, serif;
     font-size: medium;
     color: rgb(61, 54, 40);
     text-transform: none;
 }
 
 figcaption .cap-details {
-    font-family: "Lora", Times New Roman, Times, serif;
+    font-family: "Cormorant Garamond", Times New Roman, Times, serif;
     font-size: small;
     color: rgb(61, 54, 40);
 }
@@ -81,7 +82,7 @@ footer, .footer {
     margin: 100px 0 50px 5%;
     color: rgb(61, 54, 40);
     font-size: small;
-    font-family: "Lora", serif;
+    font-family: "Cormorant Garamond", serif;
 } 
 
 /* Collapsible Sections Base */
@@ -102,7 +103,7 @@ footer, .footer {
 .about-content, 
 .contact-content {
     padding: 2rem 5%;
-    font-family: "Lora", Times New Roman, Times, serif;
+    font-family: "Cormorant Garamond", Times New Roman, Times, serif;
     color: rgb(61, 54, 40);
     font-size: small;
 }
@@ -115,7 +116,7 @@ html {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    font-family: "Lora", Times New Roman, Times, serif;
+    font-family: "Cormorant Garamond", Times New Roman, Times, serif;
     font-size: medium;
     text-decoration: none;
     color: rgb(61, 54, 40);
