@@ -1,21 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robert Portfolio</title>
+    <title>Robert Müllers</title>
 
     <!-- Google Fonts Imports -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Lora:ital,wght@0,400..700;1,400..700&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
-    <!-- Main Stylesheet -->
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="robertportfolio.css">
 </head>
 <body>
 
-    <!-- Your site navigation, artwork containers, and footer stay here -->
+    <!-- Header & Navigation oben rechts -->
+    <header class="header">
+        <h1 class="site-title">Robert Müllers</h1>
+        <nav class="navbar">
+            <ul>
+                <li><a href="#about" class="nav-about">about</a></li>
+                <li><a href="#contact" class="nav-contact">contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hauptbereich mit den Kunstwerken -->
+    <main class="gallery">
+
+        <!-- Erstes Kunstwerk -->
+        <figure class="artwork">
+            <img src="Der Hirte 140x210 cm.jpeg" alt="Hirtenbild mit Ziegen">
+            <figcaption class="caption">
+                <span class="cap-num">(1)</span>
+                <span class="cap-year">(2025)</span>
+                <div class="cap-info">
+                    <span class="cap-title">Hirtenbild mit Ziegen</span>
+                    <span class="cap-medium">Oil on Canvas</span>
+                </div>
+            </figcaption>
+        </figure>
+
+        <!-- Zweites Kunstwerk -->
+        <figure class="artwork">
+            <img src="radfahrer.jpg" alt="Artwork 2">
+            <figcaption class="caption">
+                <span class="cap-num">(2)</span>
+                <span class="cap-year">(2025)</span>
+                <div class="cap-info">
+                    <span class="cap-title">Titel des Bildes</span>
+                    <span class="cap-medium">Oil on Canvas</span>
+                </div>
+            </figcaption>
+        </figure>
+
+    </main>
+
+    <a href="#" class="back-to-top">↑</a>
 
 </body>
 </html>
