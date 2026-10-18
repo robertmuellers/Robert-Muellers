@@ -102,7 +102,7 @@ footer, .footer {
 .about-content, 
 .contact-content {
     padding: 2rem 5%; /* Aligns with your 5% margin header */
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Times New Roman, Times, serif;
     color: rgb(61, 54, 40);
     font-size: small;
 }
@@ -121,7 +121,7 @@ html {
     color: rgb(61, 54, 40);
     background-color: rgba(244, 244, 244, 0.8);
     padding: 10px 15px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Times New Roman, Times, serif;
     font-size: 20px;
     border: 1px solid #ddd;
     z-index: 2000;
@@ -138,7 +138,7 @@ html {
     right: 30px;
     
     /* Typography to match your 'About' section */
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Times New Roman, Times, serif;
     font-size: medium;
     text-decoration: none;
     color: rgb(61, 54, 40);
