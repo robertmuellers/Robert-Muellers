@@ -23,7 +23,7 @@
         <nav class="navbar">
             <ul>
                 <li><a href="javascript:void(0)" id="about-link">about</a></li>
-                <li><a href="mailto:robert@stippmilch.de" id="contact-link">contact</a></li>
+                <li><a href="javascript:void(0)" id="contact-link">contact</a></li>
             </ul>
         </nav>
     </header>
@@ -32,6 +32,13 @@
     <div id="about-section" class="about-collapse">
         <div class="about-content">
             <p>Robert Müllers is a contemporary painter, based in Düsseldorf specializing in colourful, large-scale oil works.</p>
+        </div>
+    </div>
+
+    <!-- Ausklappbarer Contact-Bereich -->
+    <div id="contact-section" class="about-collapse">
+        <div class="about-content">
+            <p>Robert(at)stippmilch.de<br>(at)Robert.muellers</p>
         </div>
     </div>
 
@@ -49,10 +56,10 @@
 
         <!-- Prozess-Shot & Robert und das Huhn nah beieinander -->
         <div class="Huhn-Container">
-            <figure class="tight-figure">
+            <figure>
                 <img src="IMG_0001.JPG" alt="Process shot of painting">
             </figure>
-            <figure class="tight-figure">
+            <figure>
                 <img src="IMG_0003.JPG" alt="Robert und das Huhn">
                 <figcaption>
                     <div class="cap-title">Robert und das Huhn</div>
@@ -66,7 +73,7 @@
                 <img src="withinwithoutyou.jpg" alt="Within Without You">
                 <figcaption>
                     <div class="cap-title">Within Without You</div>
-                    <div class="cap-details">Oil paint, oil crayons on canvas / 2026</div>
+                    <div class="cap-details">Oil paint, oil crayons on canvas / Format</div>
                 </figcaption>
             </figure>
         </div>
@@ -80,14 +87,23 @@
     <!-- Back to Top Link -->
     <a href="#top" class="back-to-top">back to top</a>
 
-    <!-- JavaScript für das Ausklappen von "about" -->
+    <!-- JavaScript für das Ausklappen von "about" und "contact" -->
     <script>
         const aboutLink = document.getElementById('about-link');
         const aboutSection = document.getElementById('about-section');
+        const contactLink = document.getElementById('contact-link');
+        const contactSection = document.getElementById('contact-section');
 
         aboutLink.addEventListener('click', (e) => {
-            e.preventDefault(); 
+            e.preventDefault();
+            contactSection.classList.remove('show'); // Schließt contact, falls offen
             aboutSection.classList.toggle('show');
+        });
+
+        contactLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            aboutSection.classList.remove('show'); // Schließt about, falls offen
+            contactSection.classList.toggle('show');
         });
 
         const backToTop = document.querySelector('.back-to-top');
