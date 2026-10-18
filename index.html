@@ -3,59 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robert Müllers</title>
+    <title>Robert Portfolio</title>
 
     <!-- Google Fonts Imports -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
 
-    <!-- Stylesheet -->
+    <!-- CSS Stylesheet -->
     <link rel="stylesheet" href="robertportfolio.css">
 </head>
 <body>
 
-    <!-- Header & Navigation oben rechts -->
-    <header class="header">
-        <h1 class="site-title">Robert Müllers</h1>
-        <nav class="navbar">
-            <ul>
-                <li><a href="#about" class="nav-about">about</a></li>
-                <li><a href="#contact" class="nav-contact">contact</a></li>
-            </ul>
-        </nav>
-    </header>
+    <!-- Header & Nav -->
+    <h1>Robert Portfolio</h1>
+    <nav class="navbar">
+        <ul>
+            <li><a href="#about">about</a></li>
+            <li><a href="#contact">contact</a></li>
+        </ul>
+    </nav>
 
-    <!-- Hauptbereich mit den Kunstwerken -->
-    <main class="gallery">
+    <!-- Artwork Containers -->
+    <main>
+        <div class="Hirtenbild">
+            <figure>
+                <img src="Der Hirte 140x210 cm.jpeg" alt="Der Hirte">
+                <figcaption>
+                    <div class="cap-title">Der Hirte</div>
+                    <div class="cap-details">140x210 cm</div>
+                </figcaption>
+            </figure>
+        </div>
 
-        <!-- Erstes Kunstwerk -->
-        <figure class="artwork">
-          <img src="Der Hirte 140x210 cm.jpeg" alt="Hirtenbild mit Ziegen" loading="lazy">
-            <figcaption class="caption">
-                <span class="cap-num">(1)</span>
-                <span class="cap-year">(2025)</span>
-                <div class="cap-info">
-                    <span class="cap-title">Hirtenbild mit Ziegen</span>
-                    <span class="cap-medium">Oil on Canvas</span>
-                </div>
-            </figcaption>
-        </figure>
+        <div class="Huhn-Container">
+            <figure>
+                <img src="IMG_0001.JPG" alt="Artwork 1">
+                <figcaption>
+                    <div class="cap-title">Titel des Bildes</div>
+                    <div class="cap-details">Details / Format</div>
+                </figcaption>
+            </figure>
+        </div>
 
-        <!-- Zweites Kunstwerk -->
-        <figure class="artwork">
-            <img src="radfahrer.jpg" alt="Artwork 2">
-            <figcaption class="caption">
-                <span class="cap-num">(2)</span>
-                <span class="cap-year">(2025)</span>
-                <div class="cap-info">
-                    <span class="cap-title">Titel des Bildes</span>
-                    <span class="cap-medium">Oil on Canvas</span>
-                </div>
-            </figcaption>
-        </figure>
+        <div class="project-item">
+            <figure>
+                <img src="IMG_0003.JPG" alt="Artwork 2">
+                <figcaption>
+                    <div class="cap-title">Titel des Bildes</div>
+                    <div class="cap-details">Details / Format</div>
+                </figcaption>
+            </figure>
+        </div>
 
+        <div class="within">
+            <figure>
+                <img src="withinwithoutyou.jpg" alt="Within Without You">
+                <figcaption>
+                    <div class="cap-title">Within Without You</div>
+                    <div class="cap-details">Details / Format</div>
+                </figcaption>
+            </figure>
+        </div>
     </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Robert Portfolio</p>
+    </footer>
 
     <a href="#" class="back-to-top">↑</a>
 
