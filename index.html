@@ -12,17 +12,28 @@
 
     <!-- CSS Stylesheet -->
     <link rel="stylesheet" href="robertportfolio.css">
+    <meta name="description" content="Robert Müllers is a contemporary painter, based in Düsseldorf specializing in colourful, large-scale oil works.">
+    <meta name="google-site-verification" content="kvtQ2MvNfnJ0jJ8ZuXRaov49cpadRkQCn6q10G521EY" />
 </head>
-<body>
+<body id="top">
 
     <!-- Header & Nav -->
-    <h1>Robert Muellers</h1>
-    <nav class="navbar">
-        <ul>
-            <li><a href="#about">about</a></li>
-            <li><a href="#contact">contact</a></li>
-        </ul>
-    </nav>
+    <header>
+        <h1>Robert Müllers</h1>
+        <nav class="navbar">
+            <ul>
+                <li><a href="javascript:void(0)" id="about-link">about</a></li>
+                <li><a href="mailto:robert@stippmilch.de" id="contact-link">contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Ausklappbarer About-Bereich -->
+    <div id="about-section" class="about-collapse">
+        <div class="about-content">
+            <p>Robert Müllers is a contemporary painter, based in Düsseldorf specializing in colourful, large-scale oil works.</p>
+        </div>
+    </div>
 
     <!-- Artwork Containers -->
     <main>
@@ -36,16 +47,13 @@
             </figure>
         </div>
 
+        <!-- Prozess-Shot & Robert und das Huhn nah beieinander -->
         <div class="Huhn-Container">
-            <figure>
-                <img src="IMG_0001.JPG" alt="Artwork 1">
-                
+            <figure class="tight-figure">
+                <img src="IMG_0001.JPG" alt="Process shot of painting">
             </figure>
-        </div>
-
-        <div class="project-item">
-            <figure>
-                <img src="IMG_0003.JPG" alt="Artwork 2">
+            <figure class="tight-figure">
+                <img src="IMG_0003.JPG" alt="Robert und das Huhn">
                 <figcaption>
                     <div class="cap-title">Robert und das Huhn</div>
                     <div class="cap-details">Oil on canvas / 2026</div>
@@ -66,10 +74,34 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2026 Robert Muellers</p>
+        <p>&copy; 2026 Robert Müllers</p>
     </footer>
 
-    <a href="#" class="back-to-top">↑</a>
+    <!-- Back to Top Link -->
+    <a href="#top" class="back-to-top">back to top</a>
+
+    <!-- JavaScript für das Ausklappen von "about" -->
+    <script>
+        const aboutLink = document.getElementById('about-link');
+        const aboutSection = document.getElementById('about-section');
+
+        aboutLink.addEventListener('click', (e) => {
+            e.preventDefault(); 
+            aboutSection.classList.toggle('show');
+        });
+
+        const backToTop = document.querySelector('.back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 400) {
+                backToTop.style.opacity = "1";
+                backToTop.style.pointerEvents = "auto";
+            } else {
+                backToTop.style.opacity = "0";
+                backToTop.style.pointerEvents = "none";
+            }
+        });
+    </script>
 
 </body>
 </html>
