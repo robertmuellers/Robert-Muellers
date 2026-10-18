@@ -1,133 +1,112 @@
-/* 1. Global Styles & Layout */
+/* Globales Layout & Schriftart */
 body {
-    background-color: #f4f4f4;
+    background-color: #e5e5e5; /* Heller grauer Hintergrund */
     margin: 0;
     padding: 0;
-    font-family: "Cormorant Garamond", Times, serif;
-    font-optical-sizing: auto;
-    font-weight: 400; /* Standard normal weight */
-    font-style: normal;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    color: #000000;
 }
 
-/* 2. Header & Navigation */
-h1 {
-    margin: 5% 0 10px 5%;
-    color: rgb(61, 54, 40);
-    font-size: medium;
-    font-weight: normal;
-    font-family: "Cormorant Garamond", Times, serif;
+/* Header oben rechts ausrichten */
+.header {
+    text-align: right;
+    padding: 20px 25px 40px 0;
+}
+
+.site-title {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    line-height: 1.1;
 }
 
 .navbar ul {
-    list-style-type: none;
-    margin: 0 0 0 5%;
+    list-style: none;
+    margin: 3px 0 0 0;
     padding: 0;
     display: flex;
-    gap: 1rem; 
+    justify-content: flex-end;
+    gap: 8px;
 }
 
 .navbar a {
-    font-family: "Cormorant Garamond", Times New Roman, Times, serif;
-    font-size: small;
-    color: rgb(61, 54, 40);
-    text-decoration: none; /* Removes default underline */
+    color: #000000;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.nav-about {
+    font-style: italic;
+}
+
+.nav-contact {
+    font-weight: bold;
 }
 
 .navbar a:hover {
     text-decoration: underline;
 }
 
-/* 3. Artwork Containers */
-.project-item, 
-.Huhn-Container, 
-.Hirtenbild, 
-.within {
-    max-width: 600px;
+/* Galerie Container */
+.gallery {
+    max-width: 650px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 0 20px 60px 20px;
 }
 
-figure {
-    margin: 40px 0;
-    text-align: left;
+/* Einzelnes Kunstwerk */
+.artwork {
+    margin: 0 0 50px 0;
 }
 
-figure img {
+.artwork img {
     width: 100%;
     height: auto;
     display: block;
 }
 
-figcaption {
-    margin-top: 12px;
-    line-height: 1.6;
-    text-align: left;
+/* Dreispaltige Bildunterschrift unter dem Bild */
+.caption {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 6px;
+    font-size: 0.85rem;
+    line-height: 1.2;
 }
 
-figcaption .cap-title {
-    font-family: "Cormorant Garamond", Times New Roman, Times, serif;
-    font-size: medium;
-    color: rgb(61, 54, 40);
-    text-transform: none;
+.cap-num {
+    font-style: italic;
 }
 
-figcaption .cap-details {
-    font-family: "Cormorant Garamond", Times New Roman, Times, serif;
-    font-size: small;
-    color: rgb(61, 54, 40);
+.cap-year {
+    font-style: italic;
 }
 
-/* 4. Footer */
-footer, .footer {
-    margin: 100px 0 50px 5%;
-    color: rgb(61, 54, 40);
-    font-size: small;
-    font-family: "Cormorant Garamond", serif;
-} 
-
-/* Collapsible Sections Base */
-.about-collapse {
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    background-color: #f4f4f4;
-    transition: max-height 0.5s ease-in-out, opacity 0.5s ease;
+.cap-info {
+    text-align: right;
 }
 
-.about-collapse.show {
-    max-height: 200px; 
-    opacity: 1;
+.cap-title {
+    display: block;
+    font-weight: bold;
 }
 
-/* Interior Text Styling */
-.about-content, 
-.contact-content {
-    padding: 2rem 5%;
-    font-family: "Cormorant Garamond", Times New Roman, Times, serif;
-    color: rgb(61, 54, 40);
-    font-size: small;
+.cap-medium {
+    display: block;
+    font-style: italic;
 }
 
+/* Smooth Scroll & Back to Top */
 html {
     scroll-behavior: smooth;
 }
 
 .back-to-top {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
-    font-family: "Cormorant Garamond", Times New Roman, Times, serif;
-    font-size: medium;
+    bottom: 20px;
+    right: 20px;
     text-decoration: none;
-    color: rgb(61, 54, 40);
-    background-color: rgba(255, 255, 255, 0);
-    padding: 5px 10px;
-    border: 1px solid transparent;
-    z-index: 2000;
-    transition: all 0.3s ease;
-}
-
-.back-to-top:hover {
-    border-color: transparent;
     color: #000;
+    font-size: 1.2rem;
 }
