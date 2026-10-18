@@ -24,7 +24,7 @@ h1 {
 }
 
 .navbar a {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Times New Roman, Times, serif;
     font-size: small;
     color: rgb(61, 54, 40);;
     text-decoration: none; /* Removes the default blue underline */
@@ -57,7 +57,7 @@ figure img {
 
 /* Matches your H1 style */
 figcaption .cap-title {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Times New Roman, Times, serif;
     font-size: medium;
     color: rgb(61, 54, 40);;
     text-transform: none; /* Adjust to 'uppercase' if you want a bolder look */
@@ -65,7 +65,7 @@ figcaption .cap-title {
 
 /* Matches your Navbar Link style */
 figcaption .cap-details {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Times New Roman, Times, serif;
     font-size: small;
     color: rgb(61, 54, 40);; /* Slightly lighter for hierarchy */
 }
