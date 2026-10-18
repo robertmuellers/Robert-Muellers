@@ -1,26 +1,28 @@
-/* Google Font Import */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap');
-
 /* 1. Global Styles & Layout */
 body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-    font-family: "Cormorant Garamond", Times, serif;
-    text-align: center; /* Alles zentral ausrichten */
+    font-family: "Cormorant Garamond", Georgia, serif;
+    text-align: center;
+    color: rgb(61, 54, 40);
 }
 
 /* 2. Header & Navigation */
 header {
     text-align: center;
     margin-top: 5%;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 10;
 }
 
 h1 {
     margin: 0 0 10px 0;
     color: rgb(61, 54, 40);
-    font-size: medium;
+    font-size: 1.4rem;
     font-weight: normal;
+    font-family: "Cormorant Garamond", Georgia, serif;
 }
 
 .navbar ul {
@@ -28,21 +30,48 @@ h1 {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center; /* Navigation zentrieren */
-    gap: 1rem; 
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.navbar li {
+    display: inline-block;
 }
 
 .navbar a {
-    font-size: small;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 1rem;
     color: rgb(61, 54, 40);
     text-decoration: none;
+    cursor: pointer;
 }
 
 .navbar a:hover {
     text-decoration: underline;
 }
 
-/* 3. Artwork Containers */
+/* 3. Ausklappbarer About-Bereich */
+.about-collapse {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    background-color: #f4f4f4;
+    transition: max-height 0.5s ease-in-out, opacity 0.5s ease;
+}
+
+.about-collapse.show {
+    max-height: 200px;
+    opacity: 1;
+}
+
+.about-content {
+    padding: 1rem 5%;
+    color: rgb(61, 54, 40);
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+/* 4. Kunstwerke Container */
 .project-item, 
 .Huhn-Container, 
 .Hirtenbild, 
@@ -55,7 +84,12 @@ h1 {
 
 figure {
     margin: 40px 0;
-    text-align: center; /* Bildunterschriften zentrieren */
+    text-align: center;
+}
+
+/* Verringerter Abstand zwischen Prozess-Foto und dem Huhn-Bild */
+.Huhn-Container figure.tight-figure {
+    margin: 10px 0;
 }
 
 figure img {
@@ -65,7 +99,6 @@ figure img {
     margin: 0 auto;
 }
 
-/* Figcaption Styling */
 figcaption {
     margin-top: 12px;
     line-height: 1.6;
@@ -73,45 +106,26 @@ figcaption {
 }
 
 figcaption .cap-title {
-    font-size: medium;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 1.1rem;
     color: rgb(61, 54, 40);
 }
 
 figcaption .cap-details {
-    font-size: small;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 0.9rem;
     color: rgb(61, 54, 40);
 }
 
-/* 4. Footer */
+/* 5. Footer */
 footer {
-    margin: 100px 0 50px 0;
+    margin: 80px 0 50px 0;
     color: rgb(61, 54, 40);
-    font-size: small;
+    font-size: 0.9rem;
     text-align: center;
 } 
 
-/* Collapsible About Section */
-.about-collapse {
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    background-color: #f4f4f4;
-    transition: max-height 0.5s ease-in-out, opacity 0.5s ease;
-}
-
-.about-collapse.show {
-    max-height: 200px; 
-    opacity: 1;
-}
-
-.about-content {
-    padding: 2rem 5%;
-    color: rgb(61, 54, 40);
-    font-size: small;
-    text-align: center;
-}
-
-/* Smooth Scroll & Back to Top */
+/* Smooth Scroll & Back to Top Button */
 html {
     scroll-behavior: smooth;
 }
@@ -120,18 +134,20 @@ html {
     position: fixed;
     bottom: 30px;
     right: 30px;
+    font-family: "Cormorant Garamond", Georgia, serif;
     text-decoration: none;
     color: rgb(61, 54, 40);
-    background-color: rgba(255, 255, 255, 0);
-    padding: 5px 10px;
-    font-size: medium;
-    border: 1px solid transparent;
+    background-color: rgba(244, 244, 244, 0.9);
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    border: 1px solid #ddd;
     z-index: 2000;
     transition: opacity 0.3s ease;
-    opacity: 0; /* Gesteuert durch dein JavaScript */
+    opacity: 0;
     pointer-events: none;
 }
 
 .back-to-top:hover {
     color: #000;
+    border-color: #bbb;
 }
