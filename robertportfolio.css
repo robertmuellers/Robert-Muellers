@@ -1,120 +1,99 @@
-/* 1. Globales Layout & Schriftart */
+/* 1. Global Styles & Layout */
 body {
-    background-color: #e5e5e5; /* Heller grauer Hintergrund */
+    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-    font-family: "Cormorant Garamond", Georgia, serif;
-    color: #000000;
+    font-family: "Cormorant Garamond", Times, serif;
+    text-align: center; /* Alles zentrieren */
 }
 
-/* 2. Header & Navigation (Oben Rechts ausgerichtet) */
-.header {
-    text-align: right;
-    padding: 20px 25px 40px 0;
-    border: none;
-    border-right: none;
-}
-
-.site-title {
-    margin: 0;
-    font-size: 1.1rem;
-    font-weight: bold;
-    line-height: 1.1;
-    border: none;
-    border-right: none;
+/* 2. Header & Navigation */
+h1 {
+    margin: 5% auto 10px auto;
+    color: rgb(61, 54, 40);
+    font-size: medium;
+    font-weight: normal;
+    font-family: "Cormorant Garamond", Times, serif;
+    text-align: center;
 }
 
 .navbar ul {
-    list-style: none;
-    margin: 3px 0 0 0;
+    list-style-type: none;
+    margin: 0 auto;
     padding: 0;
     display: flex;
-    justify-content: flex-end;
-    gap: 8px;
-    border: none;
-    border-right: none;
-}
-
-.navbar li {
-    border: none;
-    border-right: none;
+    justify-content: center; /* Navigationslinks zentrieren */
+    gap: 1rem; 
 }
 
 .navbar a {
-    color: #000000;
+    font-family: "Cormorant Garamond", Times, serif;
+    font-size: small;
+    color: rgb(61, 54, 40);
     text-decoration: none;
-    font-size: 0.95rem;
-    border: none;
-}
-
-.nav-about {
-    font-style: italic;
-}
-
-.nav-contact {
-    font-weight: bold;
 }
 
 .navbar a:hover {
     text-decoration: underline;
 }
 
-/* 3. Galerie-Container */
-.gallery {
-    max-width: 650px;
+/* 3. Artwork Containers */
+.project-item, 
+.Huhn-Container, 
+.Hirtenbild, 
+.within {
+    max-width: 600px;
     margin: 0 auto;
-    padding: 0 20px 60px 20px;
+    padding: 20px;
 }
 
-/* Einzelnes Kunstwerk */
-.artwork {
-    margin: 0 0 50px 0;
+figure {
+    margin: 40px 0;
+    text-align: center; /* Zentrierte Bildunterschriften */
 }
 
-.artwork img {
+figure img {
     width: 100%;
     height: auto;
     display: block;
+    margin: 0 auto;
 }
 
-/* Dreispaltige Bildunterschrift unter dem Bild */
-.caption {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-top: 6px;
-    font-size: 0.85rem;
-    line-height: 1.2;
+/* Figcaption Styling */
+figcaption {
+    margin-top: 12px;
+    line-height: 1.6;
+    text-align: center; /* Zentriert */
 }
 
-.cap-num {
-    font-style: italic;
+figcaption .cap-title {
+    font-family: "Cormorant Garamond", Times, serif;
+    font-size: medium;
+    color: rgb(61, 54, 40);
+    text-transform: none;
 }
 
-.cap-year {
-    font-style: italic;
+figcaption .cap-details {
+    font-family: "Cormorant Garamond", Times, serif;
+    font-size: small;
+    color: rgb(61, 54, 40);
 }
 
-.cap-info {
-    text-align: right;
-}
-
-.cap-title {
-    display: block;
-    font-weight: bold;
-}
-
-.cap-medium {
-    display: block;
-    font-style: italic;
-}
+/* 4. Footer */
+footer, .footer {
+    margin: 100px auto 50px auto;
+    color: rgb(61, 54, 40);
+    font-size: small;
+    font-family: "Cormorant Garamond", serif;
+    text-align: center;
+} 
 
 /* Collapsible Sections Base */
 .about-collapse {
     max-height: 0;
     overflow: hidden;
     opacity: 0;
-    background-color: #e5e5e5;
+    background-color: #f4f4f4;
     transition: max-height 0.5s ease-in-out, opacity 0.5s ease;
 }
 
@@ -127,21 +106,32 @@ body {
 .about-content, 
 .contact-content {
     padding: 2rem 5%;
-    font-family: "Cormorant Garamond", Georgia, serif;
-    color: #000000;
+    font-family: "Cormorant Garamond", Times, serif;
+    color: rgb(61, 54, 40);
     font-size: small;
+    text-align: center;
 }
 
-/* Smooth Scroll & Back to Top Button */
 html {
     scroll-behavior: smooth;
 }
 
 .back-to-top {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 30px;
+    right: 30px;
+    font-family: "Cormorant Garamond", Times, serif;
+    font-size: medium;
     text-decoration: none;
-    color: #000000;
-    font-size: 1.2rem;
+    color: rgb(61, 54, 40);
+    background-color: rgba(255, 255, 255, 0);
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    z-index: 2000;
+    transition: all 0.3s ease;
+}
+
+.back-to-top:hover {
+    border-color: transparent;
+    color: #000;
 }
