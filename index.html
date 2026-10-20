@@ -22,13 +22,19 @@
     .selected-italic {
       font-style: italic;
     }
+    /* Strictly hide mobile works list on screens 768px and wider */
+    @media (min-width: 768px) {
+      #mobile-works-section {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 <body class="min-h-screen bg-[#FAFAFA] text-[#54411E] overflow-x-hidden selection:bg-[#54411E] selection:text-[#FAFAFA]">
 
   <div class="w-full min-h-screen flex flex-col md:flex-row">
     
-    <!-- LEFT COLUMN / MOBILE CONTAINER -->
+    <!-- LEFT COLUMN (DESKTOP) -->
     <div class="w-full md:w-1/2 p-3 md:p-5 flex flex-col justify-between z-10 order-1">
       
       <!-- Header & Navigation -->
@@ -46,7 +52,7 @@
           </button>
         </nav>
 
-        <!-- DESKTOP WORKS LIST & DESCRIPTION -->
+        <!-- DESKTOP WORKS LIST -->
         <div id="works-container-desktop" class="hidden md:block relative">
           <div id="works-list-desktop" class="flex flex-col space-y-0.5 text-[0.75rem] font-normal leading-snug">
             <button id="work-hirte-dt" onclick="selectWork('hirte')" class="text-left hover:opacity-80 transition-all w-fit">
@@ -59,18 +65,13 @@
               Robert und das Huhn
             </button>
           </div>
-
-          <!-- Desktop Dynamic Description Column -->
-          <div id="desc-container-desktop" class="hidden md:block absolute top-0 left-[210px] transition-transform duration-200 ease-out text-[0.55rem] leading-tight font-normal not-italic w-[160px]">
-            <span id="desc-text-desktop"></span>
-          </div>
         </div>
 
       </div>
 
     </div>
 
-    <!-- RIGHT HALF / MOBILE IMAGE CONTAINER -->
+    <!-- RIGHT HALF (IMAGE / CONTENT) -->
     <div class="w-full md:w-1/2 min-h-[40vh] md:min-h-screen relative bg-[#FAFAFA] flex items-start justify-start p-3 pt-0 md:p-0 order-2 md:order-2">
       
       <!-- Artwork Container -->
@@ -119,10 +120,9 @@
 
     </div>
 
-    <!-- MOBILE WORKS LIST & DESCRIPTION -->
+    <!-- MOBILE WORKS LIST (ONLY VISIBLE ON MOBILE) -->
     <div id="mobile-works-section" class="block md:hidden order-3 p-3 pt-2 pb-2">
       <div id="works-container-mobile" class="relative">
-        
         <div id="works-list-mobile" class="flex flex-col space-y-0.5 text-[0.7rem] font-normal leading-snug">
           <button id="work-hirte-mb" onclick="selectWork('hirte')" class="text-left hover:opacity-80 transition-all w-fit">
             Der Hirte
@@ -134,13 +134,12 @@
             Robert und das Huhn
           </button>
         </div>
-
-        <!-- Mobile Side-by-Side Description -->
-        <div id="desc-container-mobile" class="absolute top-0 left-[165px] transition-transform duration-200 ease-out text-[0.55rem] leading-tight font-normal not-italic w-[130px]">
-          <span id="desc-text-mobile"></span>
-        </div>
-
       </div>
+    </div>
+
+    <!-- SINGLE DYNAMIC DESCRIPTION CONTAINER -->
+    <div id="single-desc-container" class="absolute transition-transform duration-200 ease-out text-[0.55rem] leading-tight font-normal not-italic w-[130px] md:w-[160px] pointer-events-none z-30">
+      <span id="single-desc-text"></span>
     </div>
 
     <!-- Copyright Footer -->
@@ -188,11 +187,9 @@
       const worksDesktop = document.getElementById('works-container-desktop');
       const worksMobile = document.getElementById('works-container-mobile');
       
-      const hirteDt = document.getElementById('work-hirte-dt');
-      const hirteMb = document.getElementById('work-hirte-mb');
-      
-      const descDesktop = document.getElementById('desc-container-desktop');
-      const descMobile = document.getElementById('desc-container-mobile');
+      const isDesktop = window.innerWidth >= 768;
+      const hirteBtn = isDesktop ? document.getElementById('work-hirte-dt') : document.getElementById('work-hirte-mb');
+      const descContainer = document.getElementById('single-desc-container');
       
       const aboutContainer = document.getElementById('about-container');
       const contactContainer = document.getElementById('contact-container');
@@ -208,29 +205,28 @@
         }
       }
 
-      // Vertical offset alignment for selected title
-      const selectedIndex = works.findIndex(w => w.id === currentSelection);
-      if (selectedIndex !== -1) {
-        if (window.innerWidth >= 768 && descDesktop && hirteDt) {
-          const dtBtn = document.getElementById(`work-${currentSelection}-dt`);
-          if (dtBtn) {
-            const offset = dtBtn.offsetTop - hirteDt.offsetTop;
-            descDesktop.style.transform = `translateY(${offset}px)`;
-          }
-        } else if (descMobile && hirteMb) {
-          const mbBtn = document.getElementById(`work-${currentSelection}-mb`);
-          if (mbBtn) {
-            const offset = mbBtn.offsetTop - hirteMb.offsetTop;
-            descMobile.style.transform = `translateY(${offset}px)`;
-          }
-        }
+      // Position the single description next to active artwork title
+      const selectedBtn = isDesktop 
+        ? document.getElementById(`work-${currentSelection}-dt`) 
+        : document.getElementById(`work-${currentSelection}-mb`);
+
+      if (selectedBtn && descContainer && works.some(w => w.id === currentSelection)) {
+        const btnRect = selectedBtn.getBoundingClientRect();
+        const bodyRect = document.body.getBoundingClientRect();
+
+        const topPos = btnRect.top - bodyRect.top;
+        const leftPos = btnRect.right - bodyRect.left + (isDesktop ? 24 : 16);
+
+        descContainer.style.top = `${topPos}px`;
+        descContainer.style.left = `${leftPos}px`;
+        descContainer.style.display = 'block';
       }
 
-      if (window.innerWidth < 768) return;
+      if (!isDesktop) return;
 
-      // Align About / Contact top padding with "Der Hirte" on Desktop
-      if (hirteDt) {
-        const hirteRect = hirteDt.getBoundingClientRect();
+      // Align About / Contact top padding on Desktop
+      if (hirteBtn) {
+        const hirteRect = hirteBtn.getBoundingClientRect();
         if (aboutContainer) aboutContainer.style.paddingTop = `${hirteRect.top}px`;
         if (contactContainer) contactContainer.style.paddingTop = `${hirteRect.top}px`;
       }
@@ -248,22 +244,15 @@
       if (targetDt) targetDt.classList.add('selected-italic');
       if (targetMb) targetMb.classList.add('selected-italic');
 
-      // Populate description only for active viewport width
-      const isDesktop = window.innerWidth >= 768;
-      const descDtText = document.getElementById('desc-text-desktop');
-      const descMbText = document.getElementById('desc-text-mobile');
+      // Set description text
+      const descText = document.getElementById('single-desc-text');
+      if (descText) descText.innerHTML = work.desc;
 
-      if (isDesktop) {
-        if (descDtText) descDtText.innerHTML = work.desc;
-        if (descMbText) descMbText.innerHTML = '';
-      } else {
-        if (descMbText) descMbText.innerHTML = work.desc;
-        if (descDtText) descDtText.innerHTML = '';
-      }
-
-      // Show Mobile Works Block
+      // Show Mobile Works Block only on mobile screens
       const mobileWorksSec = document.getElementById('mobile-works-section');
-      if (mobileWorksSec) mobileWorksSec.style.display = 'block';
+      if (mobileWorksSec && window.innerWidth < 768) {
+        mobileWorksSec.style.display = 'block';
+      }
 
       // Display Image with Case Fallback Support
       const artContainer = document.getElementById('art-container');
@@ -297,10 +286,10 @@
       const navBtn = document.getElementById(`nav-${type}`);
       if (navBtn) navBtn.classList.add('selected-italic');
 
-      // Hide Image & Descriptions
+      // Hide Image & Description
       document.getElementById('art-container').classList.add('hidden');
-      document.getElementById('desc-text-desktop').innerHTML = '';
-      document.getElementById('desc-text-mobile').innerHTML = '';
+      const descContainer = document.getElementById('single-desc-container');
+      if (descContainer) descContainer.style.display = 'none';
 
       // Hide Mobile Works Block when in About/Contact views
       const mobileWorksSec = document.getElementById('mobile-works-section');
@@ -339,10 +328,8 @@
       alignContent();
       setTimeout(prefetchImages, 800);
     });
-    window.addEventListener('resize', () => {
-      alignContent();
-      selectWork(currentSelection);
-    });
+    window.addEventListener('resize', alignContent);
+    window.addEventListener('scroll', alignContent);
   </script>
 </body>
 </html>
