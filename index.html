@@ -33,12 +33,10 @@
       
       <!-- Header & Navigation -->
       <div>
-        <!-- Drastically tightened title line-height & margin -->
         <h1 class="text-xs md:text-sm font-normal leading-[0.85] tracking-normal mb-0 cursor-default">
           Robert Müllers
         </h1>
         
-        <!-- Negative top margin pulls "about contact" immediately below "Robert Müllers" -->
         <nav class="flex gap-3 text-[0.7rem] md:text-[0.75rem] font-normal leading-tight -mt-1 md:-mt-1.5 mb-2 md:mb-10">
           <button id="nav-about" onclick="selectSection('about')" class="hover:opacity-80 transition-opacity">
             about
@@ -50,7 +48,6 @@
 
         <!-- DESKTOP WORKS LIST & DESCRIPTION -->
         <div id="works-container-desktop" class="hidden md:block relative">
-          <!-- Tighter line spacing for artwork list -->
           <div id="works-list-desktop" class="flex flex-col space-y-0 text-[0.75rem] font-normal leading-[1.1]">
             <button id="work-hirte-dt" onclick="selectWork('hirte')" class="text-left hover:opacity-80 transition-all w-fit py-[0.5px]">
               Der Hirte
@@ -63,8 +60,8 @@
             </button>
           </div>
 
-          <!-- Desktop Dynamic Description Column -->
-          <div id="desc-container-desktop" class="absolute top-0 left-[210px] transition-transform duration-200 ease-out text-[0.55rem] leading-tight font-normal not-italic w-[160px]">
+          <!-- Desktop Dynamic Description Column (strictly hidden on mobile) -->
+          <div id="desc-container-desktop" class="hidden md:block absolute top-0 left-[210px] transition-transform duration-200 ease-out text-[0.55rem] leading-tight font-normal not-italic w-[160px]">
             <span id="desc-text-desktop"></span>
           </div>
         </div>
@@ -73,7 +70,7 @@
 
     </div>
 
-    <!-- RIGHT HALF / MOBILE IMAGE CONTAINER (Pushed closer on mobile with pt-0) -->
+    <!-- RIGHT HALF / MOBILE IMAGE CONTAINER -->
     <div class="w-full md:w-1/2 min-h-[40vh] md:min-h-screen relative bg-[#FAFAFA] flex items-start justify-start p-3 pt-0 md:p-0 order-2 md:order-2">
       
       <!-- Artwork Container -->
@@ -122,11 +119,10 @@
 
     </div>
 
-    <!-- MOBILE WORKS LIST & DESCRIPTION (Under the image) -->
+    <!-- MOBILE WORKS LIST & DESCRIPTION (Only rendered on mobile under the image) -->
     <div id="mobile-works-section" class="block md:hidden order-3 p-3 pt-2 pb-2">
       <div id="works-container-mobile" class="relative">
         
-        <!-- Tightened line spacing on mobile titles -->
         <div id="works-list-mobile" class="flex flex-col space-y-0 text-[0.7rem] font-normal leading-[1.1]">
           <button id="work-hirte-mb" onclick="selectWork('hirte')" class="text-left hover:opacity-80 transition-all w-fit py-[0.5px]">
             Der Hirte
@@ -249,99 +245,3 @@
       
       const targetDt = document.getElementById(`work-${id}-dt`);
       const targetMb = document.getElementById(`work-${id}-mb`);
-      if (targetDt) targetDt.classList.add('selected-italic');
-      if (targetMb) targetMb.classList.add('selected-italic');
-
-      // Update Desktop & Mobile Descriptions
-      document.getElementById('desc-text-desktop').innerHTML = work.desc;
-      document.getElementById('desc-text-mobile').innerHTML = work.desc;
-      
-      const descDtContainer = document.getElementById('desc-container-desktop');
-      const descMbContainer = document.getElementById('desc-container-mobile');
-      if (descDtContainer) descDtContainer.style.display = 'block';
-      if (descMbContainer) descMbContainer.style.display = 'block';
-
-      // Show Mobile Works Block
-      const mobileWorksSec = document.getElementById('mobile-works-section');
-      if (mobileWorksSec) mobileWorksSec.style.display = 'block';
-
-      // Display Image with Case Fallback Support
-      const artContainer = document.getElementById('art-container');
-      const artImage = document.getElementById('art-image');
-      
-      artImage.onerror = function() {
-        if (this.src.endsWith('.png')) {
-          this.src = work.img.replace('.png', '.PNG');
-        } else if (this.src.endsWith('.PNG')) {
-          this.src = work.img.toLowerCase();
-        }
-      };
-      
-      if (artImage.src !== work.img) {
-        artImage.src = work.img;
-      }
-      artImage.alt = work.title;
-      artContainer.classList.remove('hidden');
-
-      // Hide Text Views
-      document.getElementById('about-container').classList.add('hidden');
-      document.getElementById('contact-container').classList.add('hidden');
-
-      alignContent();
-    }
-
-    function selectSection(type) {
-      currentSelection = type;
-      clearSelections();
-
-      const navBtn = document.getElementById(`nav-${type}`);
-      if (navBtn) navBtn.classList.add('selected-italic');
-
-      // Hide Image & Descriptions
-      document.getElementById('art-container').classList.add('hidden');
-      const descDtContainer = document.getElementById('desc-container-desktop');
-      const descMbContainer = document.getElementById('desc-container-mobile');
-      if (descDtContainer) descDtContainer.style.display = 'none';
-      if (descMbContainer) descMbContainer.style.display = 'none';
-
-      // Hide Mobile Works Block when in About/Contact views
-      const mobileWorksSec = document.getElementById('mobile-works-section');
-      if (mobileWorksSec) mobileWorksSec.style.display = 'none';
-
-      // Show Selected View
-      const aboutContainer = document.getElementById('about-container');
-      const contactContainer = document.getElementById('contact-container');
-
-      if (type === 'about') {
-        aboutContainer.classList.remove('hidden');
-        contactContainer.classList.add('hidden');
-      } else if (type === 'contact') {
-        contactContainer.classList.remove('hidden');
-        aboutContainer.classList.add('hidden');
-      }
-
-      alignContent();
-    }
-
-    function clearSelections() {
-      ['about', 'contact'].forEach(id => {
-        const el = document.getElementById(`nav-${id}`);
-        if (el) el.classList.remove('selected-italic');
-      });
-      works.forEach(w => {
-        const dt = document.getElementById(`work-${w.id}-dt`);
-        const mb = document.getElementById(`work-${w.id}-mb`);
-        if (dt) dt.classList.remove('selected-italic');
-        if (mb) mb.classList.remove('selected-italic');
-      });
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      selectWork('hirte');
-      alignContent();
-      setTimeout(prefetchImages, 800);
-    });
-    window.addEventListener('resize', alignContent);
-  </script>
-</body>
-</html>
