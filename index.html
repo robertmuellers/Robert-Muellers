@@ -29,15 +29,16 @@
   <div class="w-full min-h-screen flex flex-col md:flex-row">
     
     <!-- LEFT COLUMN / MOBILE CONTAINER -->
-    <div class="w-full md:w-1/2 p-3 md:p-5 pb-1 md:pb-5 flex flex-col justify-between z-10 order-1">
+    <div class="w-full md:w-1/2 p-3 md:p-5 flex flex-col justify-between z-10 order-1">
       
       <!-- Header & Navigation -->
       <div>
-        <h1 class="text-xs md:text-sm font-normal leading-[0.85] tracking-normal mb-0 cursor-default">
+        <!-- Tight header spacing -->
+        <h1 class="text-xs md:text-sm font-normal leading-tight tracking-normal mb-0.5 cursor-default">
           Robert Müllers
         </h1>
         
-        <nav class="flex gap-3 text-[0.7rem] md:text-[0.75rem] font-normal leading-tight -mt-1 md:-mt-1.5 mb-2 md:mb-10">
+        <nav class="flex gap-3 text-[0.7rem] md:text-[0.75rem] font-normal leading-tight mb-4 md:mb-12">
           <button id="nav-about" onclick="selectSection('about')" class="hover:opacity-80 transition-opacity">
             about
           </button>
@@ -48,19 +49,19 @@
 
         <!-- DESKTOP WORKS LIST & DESCRIPTION -->
         <div id="works-container-desktop" class="hidden md:block relative">
-          <div id="works-list-desktop" class="flex flex-col space-y-0 text-[0.75rem] font-normal leading-[1.1]">
-            <button id="work-hirte-dt" onclick="selectWork('hirte')" class="text-left hover:opacity-80 transition-all w-fit py-[0.5px]">
+          <div id="works-list-desktop" class="flex flex-col space-y-0.5 text-[0.75rem] font-normal leading-snug">
+            <button id="work-hirte-dt" onclick="selectWork('hirte')" class="text-left hover:opacity-80 transition-all w-fit">
               Der Hirte
             </button>
-            <button id="work-within-dt" onclick="selectWork('within')" class="text-left hover:opacity-80 transition-all w-fit py-[0.5px]">
+            <button id="work-within-dt" onclick="selectWork('within')" class="text-left hover:opacity-80 transition-all w-fit">
               Within/without you
             </button>
-            <button id="work-robert-dt" onclick="selectWork('robert')" class="text-left hover:opacity-80 transition-all w-fit py-[0.5px]">
+            <button id="work-robert-dt" onclick="selectWork('robert')" class="text-left hover:opacity-80 transition-all w-fit">
               Robert und das Huhn
             </button>
           </div>
 
-          <!-- Desktop Dynamic Description Column (strictly hidden on mobile) -->
+          <!-- Desktop Dynamic Description Column -->
           <div id="desc-container-desktop" class="hidden md:block absolute top-0 left-[210px] transition-transform duration-200 ease-out text-[0.55rem] leading-tight font-normal not-italic w-[160px]">
             <span id="desc-text-desktop"></span>
           </div>
@@ -119,18 +120,18 @@
 
     </div>
 
-    <!-- MOBILE WORKS LIST & DESCRIPTION (Only rendered on mobile under the image) -->
+    <!-- MOBILE WORKS LIST & DESCRIPTION (Renders under image) -->
     <div id="mobile-works-section" class="block md:hidden order-3 p-3 pt-2 pb-2">
       <div id="works-container-mobile" class="relative">
         
-        <div id="works-list-mobile" class="flex flex-col space-y-0 text-[0.7rem] font-normal leading-[1.1]">
-          <button id="work-hirte-mb" onclick="selectWork('hirte')" class="text-left hover:opacity-80 transition-all w-fit py-[0.5px]">
+        <div id="works-list-mobile" class="flex flex-col space-y-0.5 text-[0.7rem] font-normal leading-snug">
+          <button id="work-hirte-mb" onclick="selectWork('hirte')" class="text-left hover:opacity-80 transition-all w-fit">
             Der Hirte
           </button>
-          <button id="work-within-mb" onclick="selectWork('within')" class="text-left hover:opacity-80 transition-all w-fit py-[0.5px]">
+          <button id="work-within-mb" onclick="selectWork('within')" class="text-left hover:opacity-80 transition-all w-fit">
             Within/without you
           </button>
-          <button id="work-robert-mb" onclick="selectWork('robert')" class="text-left hover:opacity-80 transition-all w-fit py-[0.5px]">
+          <button id="work-robert-mb" onclick="selectWork('robert')" class="text-left hover:opacity-80 transition-all w-fit">
             Robert und das Huhn
           </button>
         </div>
@@ -197,51 +198,10 @@
       const aboutContainer = document.getElementById('about-container');
       const contactContainer = document.getElementById('contact-container');
 
-      // Indent works list to match "contact" horizontal position
+      // Indent works list dynamically to align with the "contact" navigation button
       if (contactBtn) {
         const contactRect = contactBtn.getBoundingClientRect();
         const bodyRect = document.body.getBoundingClientRect();
         const indentLeft = contactRect.left - bodyRect.left;
         if (indentLeft > 0) {
-          if (worksDesktop) worksDesktop.style.paddingLeft = `${indentLeft - 20}px`;
-          if (worksMobile) worksMobile.style.paddingLeft = `${indentLeft - 12}px`;
-        }
-      }
-
-      // Vertical offset alignment for selected work
-      const selectedIndex = works.findIndex(w => w.id === currentSelection);
-      if (selectedIndex !== -1) {
-        if (window.innerWidth >= 768 && descDesktop && hirteDt) {
-          const dtBtn = document.getElementById(`work-${currentSelection}-dt`);
-          if (dtBtn) {
-            const offset = dtBtn.offsetTop - hirteDt.offsetTop;
-            descDesktop.style.transform = `translateY(${offset}px)`;
-          }
-        } else if (descMobile && hirteMb) {
-          const mbBtn = document.getElementById(`work-${currentSelection}-mb`);
-          if (mbBtn) {
-            const offset = mbBtn.offsetTop - hirteMb.offsetTop;
-            descMobile.style.transform = `translateY(${offset}px)`;
-          }
-        }
-      }
-
-      if (window.innerWidth < 768) return;
-
-      // Align About / Contact top padding with "Der Hirte" on Desktop
-      if (hirteDt) {
-        const hirteRect = hirteDt.getBoundingClientRect();
-        if (aboutContainer) aboutContainer.style.paddingTop = `${hirteRect.top}px`;
-        if (contactContainer) contactContainer.style.paddingTop = `${hirteRect.top}px`;
-      }
-    }
-
-    function selectWork(id) {
-      currentSelection = id;
-      const work = works.find(w => w.id === id);
-      if (!work) return;
-
-      clearSelections();
-      
-      const targetDt = document.getElementById(`work-${id}-dt`);
-      const targetMb = document.getElementById(`work-${id}-mb`);
+          if (worksDesktop
