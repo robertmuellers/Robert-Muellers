@@ -22,7 +22,6 @@
     .selected-italic {
       font-style: italic;
     }
-    /* Strictly hide mobile works list on screens 768px and wider */
     @media (min-width: 768px) {
       #mobile-works-section {
         display: none !important;
@@ -34,7 +33,7 @@
 
   <div class="w-full min-h-screen flex flex-col md:flex-row">
     
-    <!-- LEFT COLUMN (DESKTOP) -->
+    <!-- LEFT COLUMN -->
     <div class="w-full md:w-1/2 p-3 md:p-5 flex flex-col justify-between z-10 order-1">
       
       <!-- Header & Navigation -->
@@ -52,7 +51,7 @@
           </button>
         </nav>
 
-        <!-- DESKTOP WORKS LIST -->
+        <!-- DESKTOP WORKS LIST & ALIGNED DESCRIPTION -->
         <div id="works-container-desktop" class="hidden md:block relative">
           <div id="works-list-desktop" class="flex flex-col space-y-0.5 text-[0.75rem] font-normal leading-snug">
             <button id="work-hirte-dt" onclick="selectWork('hirte')" class="text-left hover:opacity-80 transition-all w-fit">
@@ -64,6 +63,11 @@
             <button id="work-robert-dt" onclick="selectWork('robert')" class="text-left hover:opacity-80 transition-all w-fit">
               Robert und das Huhn
             </button>
+          </div>
+
+          <!-- FIXED ALIGNED DESKTOP DESCRIPTION COLUMN -->
+          <div id="desc-container-desktop" class="absolute top-0 left-[185px] transition-transform duration-200 ease-out text-[0.55rem] leading-tight font-normal not-italic w-[160px]">
+            <span id="desc-text-desktop"></span>
           </div>
         </div>
 
@@ -120,7 +124,7 @@
 
     </div>
 
-    <!-- MOBILE WORKS LIST (ONLY VISIBLE ON MOBILE) -->
+    <!-- MOBILE WORKS LIST -->
     <div id="mobile-works-section" class="block md:hidden order-3 p-3 pt-2 pb-2">
       <div id="works-container-mobile" class="relative">
         <div id="works-list-mobile" class="flex flex-col space-y-0.5 text-[0.7rem] font-normal leading-snug">
@@ -134,12 +138,11 @@
             Robert und das Huhn
           </button>
         </div>
-      </div>
-    </div>
 
-    <!-- SINGLE DYNAMIC DESCRIPTION CONTAINER -->
-    <div id="single-desc-container" class="absolute transition-transform duration-200 ease-out text-[0.55rem] leading-tight font-normal not-italic w-[130px] md:w-[160px] pointer-events-none z-30">
-      <span id="single-desc-text"></span>
+        <div id="desc-container-mobile" class="absolute top-0 left-[165px] transition-transform duration-200 ease-out text-[0.55rem] leading-tight font-normal not-italic w-[130px]">
+          <span id="desc-text-mobile"></span>
+        </div>
+      </div>
     </div>
 
     <!-- Copyright Footer -->
@@ -187,14 +190,16 @@
       const worksDesktop = document.getElementById('works-container-desktop');
       const worksMobile = document.getElementById('works-container-mobile');
       
-      const isDesktop = window.innerWidth >= 768;
-      const hirteBtn = isDesktop ? document.getElementById('work-hirte-dt') : document.getElementById('work-hirte-mb');
-      const descContainer = document.getElementById('single-desc-container');
+      const hirteDt = document.getElementById('work-hirte-dt');
+      const hirteMb = document.getElementById('work-hirte-mb');
+      
+      const descDesktop = document.getElementById('desc-container-desktop');
+      const descMobile = document.getElementById('desc-container-mobile');
       
       const aboutContainer = document.getElementById('about-container');
       const contactContainer = document.getElementById('contact-container');
 
-      // Align works list padding dynamically with "contact" navigation button
+      // Indent works list dynamically to align with "contact" button
       if (contactBtn) {
         const contactRect = contactBtn.getBoundingClientRect();
         const bodyRect = document.body.getBoundingClientRect();
@@ -205,28 +210,29 @@
         }
       }
 
-      // Position the single description next to active artwork title
-      const selectedBtn = isDesktop 
-        ? document.getElementById(`work-${currentSelection}-dt`) 
-        : document.getElementById(`work-${currentSelection}-mb`);
-
-      if (selectedBtn && descContainer && works.some(w => w.id === currentSelection)) {
-        const btnRect = selectedBtn.getBoundingClientRect();
-        const bodyRect = document.body.getBoundingClientRect();
-
-        const topPos = btnRect.top - bodyRect.top;
-        const leftPos = btnRect.right - bodyRect.left + (isDesktop ? 24 : 16);
-
-        descContainer.style.top = `${topPos}px`;
-        descContainer.style.left = `${leftPos}px`;
-        descContainer.style.display = 'block';
+      // Vertical offset alignment for active work item
+      const selectedIndex = works.findIndex(w => w.id === currentSelection);
+      if (selectedIndex !== -1) {
+        if (window.innerWidth >= 768 && descDesktop && hirteDt) {
+          const dtBtn = document.getElementById(`work-${currentSelection}-dt`);
+          if (dtBtn) {
+            const offset = dtBtn.offsetTop - hirteDt.offsetTop;
+            descDesktop.style.transform = `translateY(${offset}px)`;
+          }
+        } else if (descMobile && hirteMb) {
+          const mbBtn = document.getElementById(`work-${currentSelection}-mb`);
+          if (mbBtn) {
+            const offset = mbBtn.offsetTop - hirteMb.offsetTop;
+            descMobile.style.transform = `translateY(${offset}px)`;
+          }
+        }
       }
 
-      if (!isDesktop) return;
+      if (window.innerWidth < 768) return;
 
       // Align About / Contact top padding on Desktop
-      if (hirteBtn) {
-        const hirteRect = hirteBtn.getBoundingClientRect();
+      if (hirteDt) {
+        const hirteRect = hirteDt.getBoundingClientRect();
         if (aboutContainer) aboutContainer.style.paddingTop = `${hirteRect.top}px`;
         if (contactContainer) contactContainer.style.paddingTop = `${hirteRect.top}px`;
       }
@@ -244,13 +250,22 @@
       if (targetDt) targetDt.classList.add('selected-italic');
       if (targetMb) targetMb.classList.add('selected-italic');
 
-      // Set description text
-      const descText = document.getElementById('single-desc-text');
-      if (descText) descText.innerHTML = work.desc;
+      // Update text in active viewport description container
+      const isDesktop = window.innerWidth >= 768;
+      const descDtText = document.getElementById('desc-text-desktop');
+      const descMbText = document.getElementById('desc-text-mobile');
 
-      // Show Mobile Works Block only on mobile screens
+      if (isDesktop) {
+        if (descDtText) descDtText.innerHTML = work.desc;
+        if (descMbText) descMbText.innerHTML = '';
+      } else {
+        if (descMbText) descMbText.innerHTML = work.desc;
+        if (descDtText) descDtText.innerHTML = '';
+      }
+
+      // Show Mobile Works Block on mobile
       const mobileWorksSec = document.getElementById('mobile-works-section');
-      if (mobileWorksSec && window.innerWidth < 768) {
+      if (mobileWorksSec && !isDesktop) {
         mobileWorksSec.style.display = 'block';
       }
 
@@ -288,8 +303,10 @@
 
       // Hide Image & Description
       document.getElementById('art-container').classList.add('hidden');
-      const descContainer = document.getElementById('single-desc-container');
-      if (descContainer) descContainer.style.display = 'none';
+      const descDtText = document.getElementById('desc-text-desktop');
+      const descMbText = document.getElementById('desc-text-mobile');
+      if (descDtText) descDtText.innerHTML = '';
+      if (descMbText) descMbText.innerHTML = '';
 
       // Hide Mobile Works Block when in About/Contact views
       const mobileWorksSec = document.getElementById('mobile-works-section');
@@ -328,8 +345,10 @@
       alignContent();
       setTimeout(prefetchImages, 800);
     });
-    window.addEventListener('resize', alignContent);
-    window.addEventListener('scroll', alignContent);
+    window.addEventListener('resize', () => {
+      alignContent();
+      selectWork(currentSelection);
+    });
   </script>
 </body>
 </html>
