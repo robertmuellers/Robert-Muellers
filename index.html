@@ -33,7 +33,6 @@
       
       <!-- Header & Navigation -->
       <div>
-        <!-- Tight header spacing -->
         <h1 class="text-xs md:text-sm font-normal leading-tight tracking-normal mb-0.5 cursor-default">
           Robert Müllers
         </h1>
@@ -120,7 +119,7 @@
 
     </div>
 
-    <!-- MOBILE WORKS LIST & DESCRIPTION (Renders under image) -->
+    <!-- MOBILE WORKS LIST & DESCRIPTION -->
     <div id="mobile-works-section" class="block md:hidden order-3 p-3 pt-2 pb-2">
       <div id="works-container-mobile" class="relative">
         
@@ -198,10 +197,152 @@
       const aboutContainer = document.getElementById('about-container');
       const contactContainer = document.getElementById('contact-container');
 
-      // Indent works list dynamically to align with the "contact" navigation button
+      // Align works list padding dynamically with "contact" navigation button
       if (contactBtn) {
         const contactRect = contactBtn.getBoundingClientRect();
         const bodyRect = document.body.getBoundingClientRect();
         const indentLeft = contactRect.left - bodyRect.left;
         if (indentLeft > 0) {
-          if (worksDesktop
+          if (worksDesktop) worksDesktop.style.paddingLeft = `${indentLeft - 12}px`;
+          if (worksMobile) worksMobile.style.paddingLeft = `${indentLeft - 12}px`;
+        }
+      }
+
+      // Vertical offset alignment for selected title
+      const selectedIndex = works.findIndex(w => w.id === currentSelection);
+      if (selectedIndex !== -1) {
+        if (window.innerWidth >= 768 && descDesktop && hirteDt) {
+          const dtBtn = document.getElementById(`work-${currentSelection}-dt`);
+          if (dtBtn) {
+            const offset = dtBtn.offsetTop - hirteDt.offsetTop;
+            descDesktop.style.transform = `translateY(${offset}px)`;
+          }
+        } else if (descMobile && hirteMb) {
+          const mbBtn = document.getElementById(`work-${currentSelection}-mb`);
+          if (mbBtn) {
+            const offset = mbBtn.offsetTop - hirteMb.offsetTop;
+            descMobile.style.transform = `translateY(${offset}px)`;
+          }
+        }
+      }
+
+      if (window.innerWidth < 768) return;
+
+      // Align About / Contact top padding with "Der Hirte" on Desktop
+      if (hirteDt) {
+        const hirteRect = hirteDt.getBoundingClientRect();
+        if (aboutContainer) aboutContainer.style.paddingTop = `${hirteRect.top}px`;
+        if (contactContainer) contactContainer.style.paddingTop = `${hirteRect.top}px`;
+      }
+    }
+
+    function selectWork(id) {
+      currentSelection = id;
+      const work = works.find(w => w.id === id);
+      if (!work) return;
+
+      clearSelections();
+      
+      const targetDt = document.getElementById(`work-${id}-dt`);
+      const targetMb = document.getElementById(`work-${id}-mb`);
+      if (targetDt) targetDt.classList.add('selected-italic');
+      if (targetMb) targetMb.classList.add('selected-italic');
+
+      // Populate description only for active viewport width
+      const isDesktop = window.innerWidth >= 768;
+      const descDtText = document.getElementById('desc-text-desktop');
+      const descMbText = document.getElementById('desc-text-mobile');
+
+      if (isDesktop) {
+        if (descDtText) descDtText.innerHTML = work.desc;
+        if (descMbText) descMbText.innerHTML = '';
+      } else {
+        if (descMbText) descMbText.innerHTML = work.desc;
+        if (descDtText) descDtText.innerHTML = '';
+      }
+
+      // Show Mobile Works Block
+      const mobileWorksSec = document.getElementById('mobile-works-section');
+      if (mobileWorksSec) mobileWorksSec.style.display = 'block';
+
+      // Display Image with Case Fallback Support
+      const artContainer = document.getElementById('art-container');
+      const artImage = document.getElementById('art-image');
+      
+      artImage.onerror = function() {
+        if (this.src.endsWith('.png')) {
+          this.src = work.img.replace('.png', '.PNG');
+        } else if (this.src.endsWith('.PNG')) {
+          this.src = work.img.toLowerCase();
+        }
+      };
+      
+      if (artImage.src !== work.img) {
+        artImage.src = work.img;
+      }
+      artImage.alt = work.title;
+      artContainer.classList.remove('hidden');
+
+      // Hide Text Views
+      document.getElementById('about-container').classList.add('hidden');
+      document.getElementById('contact-container').classList.add('hidden');
+
+      alignContent();
+    }
+
+    function selectSection(type) {
+      currentSelection = type;
+      clearSelections();
+
+      const navBtn = document.getElementById(`nav-${type}`);
+      if (navBtn) navBtn.classList.add('selected-italic');
+
+      // Hide Image & Descriptions
+      document.getElementById('art-container').classList.add('hidden');
+      document.getElementById('desc-text-desktop').innerHTML = '';
+      document.getElementById('desc-text-mobile').innerHTML = '';
+
+      // Hide Mobile Works Block when in About/Contact views
+      const mobileWorksSec = document.getElementById('mobile-works-section');
+      if (mobileWorksSec) mobileWorksSec.style.display = 'none';
+
+      // Show Selected View
+      const aboutContainer = document.getElementById('about-container');
+      const contactContainer = document.getElementById('contact-container');
+
+      if (type === 'about') {
+        aboutContainer.classList.remove('hidden');
+        contactContainer.classList.add('hidden');
+      } else if (type === 'contact') {
+        contactContainer.classList.remove('hidden');
+        aboutContainer.classList.add('hidden');
+      }
+
+      alignContent();
+    }
+
+    function clearSelections() {
+      ['about', 'contact'].forEach(id => {
+        const el = document.getElementById(`nav-${id}`);
+        if (el) el.classList.remove('selected-italic');
+      });
+      works.forEach(w => {
+        const dt = document.getElementById(`work-${w.id}-dt`);
+        const mb = document.getElementById(`work-${w.id}-mb`);
+        if (dt) dt.classList.remove('selected-italic');
+        if (mb) mb.classList.remove('selected-italic');
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      selectWork('hirte');
+      alignContent();
+      setTimeout(prefetchImages, 800);
+    });
+    window.addEventListener('resize', () => {
+      alignContent();
+      selectWork(currentSelection);
+    });
+  </script>
+</body>
+</html>
