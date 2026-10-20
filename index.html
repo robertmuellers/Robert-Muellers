@@ -4,10 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Robert Müllers</title>
+  
+  <!-- Preload Initial Artwork Image for Instant Mobile Loading -->
+  <link rel="preload" as="image" href="Der Hirte_rand_final.png" fetchpriority="high">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+  
   <style>
     body {
       font-family: 'EB Garamond', serif;
@@ -41,7 +46,7 @@
           </button>
         </nav>
 
-        <!-- Works List Block (Indented to match "contact") -->
+        <!-- Works List & Dynamic Alignment Block -->
         <div id="works-container" class="relative">
           
           <div id="works-list" class="flex flex-col space-y-0.5 text-[0.7rem] md:text-[0.75rem] font-normal">
@@ -56,21 +61,13 @@
             </button>
           </div>
 
-          <!-- Desktop Dynamic Description Column -->
-          <div id="desc-container-desktop" class="hidden md:block absolute top-0 left-[210px] transition-transform duration-200 ease-out text-[0.55rem] leading-tight font-normal not-italic w-[160px]">
-            <span id="desc-text-desktop"></span>
+          <!-- Dynamic Description (Positioned directly to the right of selected title) -->
+          <div id="desc-container" class="absolute top-0 left-[180px] md:left-[210px] transition-transform duration-200 ease-out text-[0.55rem] leading-tight font-normal not-italic w-[140px] md:w-[160px]">
+            <span id="desc-text"></span>
           </div>
 
         </div>
 
-      </div>
-
-      <!-- Mobile Side-by-Side Description Block (Vertically Top Aligned) -->
-      <div id="mobile-desc-wrapper" class="block md:hidden mt-3 mb-3">
-        <div class="flex items-start gap-3">
-          <div id="mobile-active-title" class="text-[0.7rem] font-normal italic min-w-[110px] leading-tight pt-0"></div>
-          <div id="desc-text-mobile" class="text-[0.6rem] leading-tight font-normal not-italic opacity-90 pt-0"></div>
-        </div>
       </div>
 
     </div>
@@ -80,7 +77,14 @@
       
       <!-- Artwork Container -->
       <div id="art-container" class="w-full h-full flex items-start justify-start transition-opacity duration-300">
-        <img id="art-image" src="" alt="Artwork" class="w-full h-auto max-h-screen object-contain object-top">
+        <img 
+          id="art-image" 
+          src="Der Hirte_rand_final.png" 
+          alt="Artwork" 
+          decoding="async" 
+          fetchpriority="high"
+          class="w-full h-auto max-h-screen object-contain object-top transition-opacity duration-200"
+        >
       </div>
 
       <!-- About Section Content -->
@@ -150,11 +154,19 @@
 
     let currentSelection = 'hirte';
 
+    // Pre-cache all images in browser memory after main thread renders
+    function prefetchImages() {
+      works.forEach(work => {
+        const img = new Image();
+        img.src = work.img;
+      });
+    }
+
     function alignContent() {
       const contactBtn = document.getElementById('nav-contact');
       const worksContainer = document.getElementById('works-container');
       const hirteBtn = document.getElementById('work-hirte');
-      const descContainerDesktop = document.getElementById('desc-container-desktop');
+      const descContainer = document.getElementById('desc-container');
       const aboutContainer = document.getElementById('about-container');
       const contactContainer = document.getElementById('contact-container');
 
@@ -168,18 +180,18 @@
         }
       }
 
-      if (window.innerWidth < 768) return;
-
       if (!hirteBtn) return;
       const selectedBtn = document.getElementById(`work-${currentSelection}`);
       
-      // Vertical offset calculation relative to "Der Hirte"
-      if (selectedBtn && descContainerDesktop && works.some(w => w.id === currentSelection)) {
+      // Calculate vertical offset relative to "Der Hirte"
+      if (selectedBtn && descContainer && works.some(w => w.id === currentSelection)) {
         const offset = selectedBtn.offsetTop - hirteBtn.offsetTop;
-        descContainerDesktop.style.transform = `translateY(${offset}px)`;
+        descContainer.style.transform = `translateY(${offset}px)`;
       }
 
-      // Align About / Contact top padding with "Der Hirte"
+      if (window.innerWidth < 768) return;
+
+      // Align About / Contact top padding with "Der Hirte" baseline
       const hirteRect = hirteBtn.getBoundingClientRect();
       if (aboutContainer) aboutContainer.style.paddingTop = `${hirteRect.top}px`;
       if (contactContainer) contactContainer.style.paddingTop = `${hirteRect.top}px`;
@@ -194,16 +206,15 @@
       const targetBtn = document.getElementById(`work-${id}`);
       if (targetBtn) targetBtn.classList.add('selected-italic');
 
-      // Update Desktop & Mobile Descriptions
-      const descContainerDesktop = document.getElementById('desc-container-desktop');
-      document.getElementById('desc-text-desktop').innerHTML = work.desc;
-      document.getElementById('desc-text-mobile').innerHTML = work.desc;
-      document.getElementById('mobile-active-title').innerHTML = work.title;
-      if (descContainerDesktop) descContainerDesktop.style.display = 'block';
+      // Update Artwork Description
+      const descContainer = document.getElementById('desc-container');
+      document.getElementById('desc-text').innerHTML = work.desc;
+      if (descContainer) descContainer.style.display = 'block';
 
       // Display Image with Case Fallback Support
       const artContainer = document.getElementById('art-container');
       const artImage = document.getElementById('art-image');
+      
       artImage.onerror = function() {
         if (this.src.endsWith('.png')) {
           this.src = work.img.replace('.png', '.PNG');
@@ -211,7 +222,10 @@
           this.src = work.img.toLowerCase();
         }
       };
-      artImage.src = work.img;
+      
+      if (artImage.src !== work.img) {
+        artImage.src = work.img;
+      }
       artImage.alt = work.title;
       artContainer.classList.remove('hidden');
 
@@ -231,10 +245,8 @@
 
       // Hide Image and Description
       document.getElementById('art-container').classList.add('hidden');
-      const descDesktop = document.getElementById('desc-container-desktop');
-      if (descDesktop) descDesktop.style.display = 'none';
-      document.getElementById('desc-text-mobile').innerHTML = '';
-      document.getElementById('mobile-active-title').innerHTML = '';
+      const descContainer = document.getElementById('desc-container');
+      if (descContainer) descContainer.style.display = 'none';
 
       // Show Selected View
       const aboutContainer = document.getElementById('about-container');
@@ -265,6 +277,8 @@
     window.addEventListener('DOMContentLoaded', () => {
       selectWork('hirte');
       alignContent();
+      // Pre-fetch remaining images immediately after load
+      setTimeout(prefetchImages, 800);
     });
     window.addEventListener('resize', alignContent);
   </script>
