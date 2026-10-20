@@ -4,241 +4,283 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Robert Müllers</title>
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- EB Garamond Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'EB Garamond', serif;
-      background-color: #FAFAFA;
-      color: #54411E;
+    :root {
+      --bg-color: #FAFAFA;
+      --text-color: #54411E;
     }
-    .selected-italic {
-      font-style: italic;
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'EB Garamond', Garamond, 'Times New Roman', serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Base Typography Sizes (Reduced general type size) */
+    .brand-title {
+      font-size: 1.15rem; /* ~18.4px */
+      line-height: 1.1;
+    }
+
+    .nav-link {
+      font-size: 1rem; /* ~16px */
+      cursor: pointer;
+      user-select: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .nav-link:hover, .item-title:hover {
+      opacity: 0.75;
+    }
+
+    .item-title {
+      font-size: 1.05rem; /* ~16.8px */
+      cursor: pointer;
+      line-height: 1.2;
+      user-select: none;
+    }
+
+    /* Active selection state */
+    .is-active {
+      font-style: italic !important;
+    }
+
+    /* Artwork description styling (Reduced 1/3, strictly non-italic) */
+    .description-text {
+      font-size: 0.72rem; /* Reduced size */
+      line-height: 1.2;
+      font-style: normal !important;
+      font-weight: 400;
+      color: var(--text-color);
+      transition: transform 0.2s ease-out;
+    }
+
+    /* Reduced line height & letter spacing for About/Contact text */
+    .reduced-line-height {
+      line-height: 1.12 !important;
+      letter-spacing: -0.01em;
+      font-size: 0.95rem; /* ~15.2px */
+    }
+
+    .fade-in {
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   </style>
 </head>
-<body class="min-h-screen bg-[#FAFAFA] text-[#54411E] overflow-x-hidden selection:bg-[#54411E] selection:text-[#FAFAFA]">
+<body class="min-h-screen flex flex-col justify-between">
 
-  <div class="w-full min-h-screen flex flex-col md:flex-row">
+  <!-- Desktop & Mobile Container Layout -->
+  <div class="flex flex-col md:flex-row w-full min-h-screen">
     
-    <!-- LEFT HALF (50% Width) -->
-    <div class="w-full md:w-1/2 p-6 md:p-12 flex flex-col justify-between min-h-screen z-10">
-      
-      <!-- Header / Nav Section -->
+    <!-- LEFT COLUMN (Full width on Mobile, 50% width on Desktop) -->
+    <div class="w-full md:w-1/2 p-6 md:p-12 flex flex-col justify-between shrink-0">
       <div>
-        <h1 class="text-xl md:text-2xl font-normal leading-tight tracking-normal mb-1 cursor-default">
-          Robert Müllers
-        </h1>
-        
-        <nav class="flex gap-4 text-lg md:text-xl font-normal mb-20 md:mb-28">
-          <button id="nav-about" onclick="selectSection('about')" class="hover:opacity-80 transition-opacity">
-            about
-          </button>
-          <button id="nav-contact" onclick="selectSection('contact')" class="hover:opacity-80 transition-opacity">
-            contact
-          </button>
-        </nav>
+        <!-- Brand Header & Navigation Links -->
+        <header class="mb-10 md:mb-14">
+          <h1 class="brand-title font-normal mb-1">
+            <span class="cursor-pointer" onclick="selectItem('der-hirte')">Robert Müllers</span>
+          </h1>
+          <nav class="flex gap-4">
+            <span id="nav-about" class="nav-link" onclick="selectItem('about')">about</span>
+            <span id="nav-contact" class="nav-link" onclick="selectItem('contact')">contact</span>
+          </nav>
+        </header>
 
-        <!-- Works List and Dynamic Description Grid -->
-        <div class="grid grid-cols-12 gap-2 relative items-start">
+        <!-- Works List & Description Grid -->
+        <div class="grid grid-cols-12 gap-3 items-start relative">
           
-          <!-- Works List (Left Column) -->
-          <div class="col-span-7 flex flex-col space-y-1.5 text-lg md:text-xl font-normal">
-            <button id="work-hirte" onclick="selectWork('hirte')" class="text-left hover:opacity-80 transition-all w-fit">
+          <!-- Works List Titles -->
+          <div id="works-list-container" class="col-span-7 sm:col-span-6 flex flex-col gap-1.5">
+            <div id="work-der-hirte" class="item-title" onclick="selectItem('der-hirte')">
               Der Hirte
-            </button>
-            <button id="work-within" onclick="selectWork('within')" class="text-left hover:opacity-80 transition-all w-fit">
+            </div>
+            <div id="work-within-without-you" class="item-title" onclick="selectItem('within-without-you')">
               Within/without you
-            </button>
-            <button id="work-robert" onclick="selectWork('robert')" class="text-left hover:opacity-80 transition-all w-fit">
+            </div>
+            <div id="work-robert-und-das-huhn" class="item-title" onclick="selectItem('robert-und-das-huhn')">
               Robert und das Huhn
-            </button>
-          </div>
-
-          <!-- Dynamic Description Column (Appears directly horizontally adjacent to selected title) -->
-          <div class="col-span-5 relative min-h-[120px]">
-            <div id="desc-container" class="absolute top-0 left-0 transition-transform duration-200 ease-out text-[0.75rem] md:text-[0.8rem] leading-tight font-normal not-italic max-w-[190px]">
-              <span id="desc-text"></span>
             </div>
           </div>
 
-        </div>
+          <!-- Dynamic Image Description Column -->
+          <div class="col-span-5 sm:col-span-6 relative min-h-[60px]">
+            <div id="artwork-description" class="description-text absolute top-0 left-0 pt-[0.1rem]"></div>
+          </div>
 
+        </div>
       </div>
 
-      <!-- Optional Footer -->
-      <footer class="text-xs opacity-60 mt-12 md:mt-0">
+      <!-- Desktop Footer (Hidden on Mobile to avoid layout breaking/overlap) -->
+      <footer class="hidden md:block text-[0.7rem] opacity-60 mt-12">
         &copy; 2026 Robert Müllers
       </footer>
-
     </div>
 
-    <!-- RIGHT HALF (50% Width, Full Height, Attached to Top) -->
-    <div class="w-full md:w-1/2 min-h-[50vh] md:min-h-screen relative bg-[#FAFAFA] flex items-start justify-start">
-      
-      <!-- Artwork Container -->
-      <div id="art-container" class="w-full h-full flex items-start justify-start transition-opacity duration-300">
-        <img id="art-image" src="" alt="Artwork" class="w-full h-full object-cover object-top max-h-screen">
-      </div>
-
-      <!-- About Section Content -->
-      <div id="about-container" class="hidden absolute top-0 left-0 w-full p-6 md:p-12 transition-all duration-200">
-        <div class="max-w-md text-base md:text-lg tracking-tight font-normal" style="line-height: 1.15; letter-spacing: -0.01em;">
-          <p class="mb-4">
-            Robert Müllers is a contemporary painter, based in Düsseldorf specializing in colourful, large-scale oil works.
-          </p>
-          <p class="mb-4">
-            (b. 1992) His work examines figurative abstraction, gesture, and physical texture. Müllers' paintings inhabit a space between quiet states and vivid expressionism, drawing upon raw brushwork juxtaposed with distinct linework.
-          </p>
-          <div>
-            <p class="font-normal mb-1">Selected Exhibitions:</p>
-            <p class="opacity-90">2026 — Group Exhibition, Berlin</p>
-            <p class="opacity-90">2025 — Solo Presentation, Kunsthalle Studio</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Contact Section Content -->
-      <div id="contact-container" class="hidden absolute top-0 left-0 w-full p-6 md:p-12 transition-all duration-200">
-        <div class="max-w-md text-base md:text-lg tracking-tight font-normal" style="line-height: 1.15; letter-spacing: -0.01em;">
-          <p class="mb-2">
-            <a href="mailto:Robert@stippmilch.de" class="hover:underline">Robert(at)stippmilch.de</a>
-          </p>
-          <p class="mb-4">
-            <a href="https://instagram.com/Robert.muellers" target="_blank" rel="noopener noreferrer" class="hover:underline">@Robert.muellers</a>
-          </p>
-          <p class="opacity-75 text-sm">
-            For sales, catalog requests, or studio visit inquiries, please reach out via email or direct message.
-          </p>
-        </div>
-      </div>
-
+    <!-- RIGHT COLUMN (Full width on Mobile, 50% width on Desktop) -->
+    <div id="right-column" class="w-full md:w-1/2 min-h-[50vh] md:min-h-screen relative shrink-0">
+      <!-- Content Area dynamically rendered -->
     </div>
 
   </div>
 
+  <!-- Mobile Footer (Placed at the very end of page flow on small screens) -->
+  <footer class="block md:hidden text-[0.7rem] opacity-60 p-6 pt-2 text-left">
+    &copy; 2026 Robert Müllers
+  </footer>
+
+  <!-- Application Script -->
   <script>
-    // Exact extracted artwork information and local image filenames
-    const works = [
-      {
-        id: "hirte",
-        title: "Der Hirte",
-        desc: "Oil paint, wax pens on canvas,<br>2026",
-        img: "Der Hirte_rand_final.png"
+    const portfolioData = {
+      'der-hirte': {
+        type: 'artwork',
+        title: 'Der Hirte',
+        medium: 'Oil paint, wax pens on canvas,',
+        year: '2026',
+        imgSrc: 'Der Hirte_rand_final.png'
       },
-      {
-        id: "within",
-        title: "Within/without you",
-        desc: "Oil paint, oil crayons on canvas,<br>2026",
-        img: "withinwithoutyou_cropped.png"
+      'within-without-you': {
+        type: 'artwork',
+        title: 'Within/without you',
+        medium: 'Oil paint, oil crayons on canvas,',
+        year: '2026',
+        imgSrc: 'withinwithoutyou_cropped.png'
       },
-      {
-        id: "robert",
-        title: "Robert und das Huhn",
-        desc: "Oil on canvas,<br>2026",
-        img: "IMG_0003.JPG"
+      'robert-und-das-huhn': {
+        type: 'artwork',
+        title: 'Robert und das Huhn',
+        medium: 'Oil on canvas,',
+        year: '2026',
+        imgSrc: 'IMG_0003.JPG'
+      },
+      'about': {
+        type: 'page',
+        title: 'About',
+        content: `
+          <div class="px-6 md:px-12 w-full flex flex-col justify-start items-start pt-6 md:pt-[var(--hirte-top,140px)]">
+            <div class="max-w-md reduced-line-height space-y-3 fade-in">
+              <p>
+                Robert Müllers is a contemporary painter, based in Düsseldorf specializing in colourful, large-scale oil works.
+              </p>
+              <p>
+                (b. 1992) His work examines figurative abstraction, gesture, and physical texture. Müllers' paintings inhabit a space between quiet states and vivid expressionism, drawing upon raw brushwork juxtaposed with distinct linework.
+              </p>
+              <div class="pt-2 space-y-0.5">
+                <p class="font-normal">Selected Exhibitions:</p>
+                <p>2026 — Group Exhibition, Berlin</p>
+                <p>2025 — Solo Presentation, Kunsthalle Studio</p>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      'contact': {
+        type: 'page',
+        title: 'Contact',
+        content: `
+          <div class="px-6 md:px-12 w-full flex flex-col justify-start items-start pt-6 md:pt-[var(--hirte-top,140px)]">
+            <div class="max-w-md reduced-line-height space-y-3 fade-in">
+              <p class="font-normal">
+                <a href="mailto:Robert@stippmilch.de" class="hover:underline">Robert(at)stippmilch.de</a>
+              </p>
+              <p class="font-normal">
+                <a href="https://instagram.com/Robert.muellers" target="_blank" rel="noopener noreferrer" class="hover:underline">@Robert.muellers</a>
+              </p>
+            </div>
+          </div>
+        `
       }
-    ];
+    };
 
-    let currentSelection = 'hirte';
-
-    function alignContent() {
-      const hirteBtn = document.getElementById('work-hirte');
-      const descContainer = document.getElementById('desc-container');
-      const aboutContainer = document.getElementById('about-container');
-      const contactContainer = document.getElementById('contact-container');
-
-      if (!hirteBtn) return;
-
-      const selectedBtn = document.getElementById(`work-${currentSelection}`);
-      
-      // Calculate vertical offset relative to "Der Hirte"
-      if (selectedBtn && descContainer && works.some(w => w.id === currentSelection)) {
-        const offset = selectedBtn.offsetTop - hirteBtn.offsetTop;
-        descContainer.style.transform = `translateY(${offset}px)`;
+    function syncHirtePosition() {
+      const hirteEl = document.getElementById('work-der-hirte');
+      if (hirteEl) {
+        const rect = hirteEl.getBoundingClientRect();
+        document.documentElement.style.setProperty('--hirte-top', `${rect.top}px`);
       }
-
-      // Align About / Contact top padding with "Der Hirte" position
-      const hirteRect = hirteBtn.getBoundingClientRect();
-      if (aboutContainer) aboutContainer.style.paddingTop = `${hirteRect.top}px`;
-      if (contactContainer) contactContainer.style.paddingTop = `${hirteRect.top}px`;
     }
 
-    function selectWork(id) {
-      currentSelection = id;
-      const work = works.find(w => w.id === id);
-      if (!work) return;
+    function selectItem(key) {
+      if (!portfolioData[key]) return;
 
-      // Update Nav / Work state formatting
-      clearSelections();
-      const targetBtn = document.getElementById(`work-${id}`);
-      if (targetBtn) targetBtn.classList.add('selected-italic');
+      // Recalculate top position of 'Der Hirte'
+      syncHirtePosition();
 
-      // Update Description
-      const descContainer = document.getElementById('desc-container');
-      const descText = document.getElementById('desc-text');
-      descText.innerHTML = work.desc;
-      descContainer.style.display = 'block';
+      // Clear all active italic styles
+      document.getElementById('nav-about').classList.remove('is-active');
+      document.getElementById('nav-contact').classList.remove('is-active');
+      document.getElementById('work-der-hirte').classList.remove('is-active');
+      document.getElementById('work-within-without-you').classList.remove('is-active');
+      document.getElementById('work-robert-und-das-huhn').classList.remove('is-active');
 
-      // Display Image
-      const artContainer = document.getElementById('art-container');
-      const artImage = document.getElementById('art-image');
-      artImage.src = work.img;
-      artImage.alt = work.title;
-      artContainer.classList.remove('hidden');
+      const descEl = document.getElementById('artwork-description');
+      const rightColumn = document.getElementById('right-column');
+      const data = portfolioData[key];
 
-      // Hide Text Sections
-      document.getElementById('about-container').classList.add('hidden');
-      document.getElementById('contact-container').classList.add('hidden');
+      if (data.type === 'artwork') {
+        // Italicize active artwork title
+        const activeTitleEl = document.getElementById(`work-${key}`);
+        if (activeTitleEl) {
+          activeTitleEl.classList.add('is-active');
 
-      alignContent();
-    }
+          // Align description vertically with the active item on desktop
+          const containerRect = document.getElementById('works-list-container').getBoundingClientRect();
+          const itemRect = activeTitleEl.getBoundingClientRect();
+          const topOffset = itemRect.top - containerRect.top;
 
-    function selectSection(type) {
-      currentSelection = type;
-      clearSelections();
+          descEl.style.transform = `translateY(${topOffset}px)`;
+        }
 
-      const navBtn = document.getElementById(`nav-${type}`);
-      if (navBtn) navBtn.classList.add('selected-italic');
+        // Render non-italic description text
+        descEl.innerHTML = `<div class="fade-in"><div>${data.medium}</div><div>${data.year}</div></div>`;
 
-      // Hide Artwork Image & Description
-      document.getElementById('art-container').classList.add('hidden');
-      document.getElementById('desc-container').style.display = 'none';
+        // Render image in right column attached flush to top with natural aspect ratio (no stretching)
+        rightColumn.innerHTML = `
+          <div class="w-full h-full min-h-[50vh] md:min-h-screen flex items-start justify-start fade-in">
+            <img src="${data.imgSrc}" alt="${data.title}" class="w-full h-auto max-h-screen object-contain object-top" onerror="this.onerror=null; this.src='https://placehold.co/600x750/FAFAFA/54411E?text=${encodeURIComponent(data.title)}';">
+          </div>
+        `;
+      } else if (data.type === 'page') {
+        // Italicize active nav button
+        const activeNavEl = document.getElementById(`nav-${key}`);
+        if (activeNavEl) activeNavEl.classList.add('is-active');
 
-      // Show Selected Section
-      const aboutContainer = document.getElementById('about-container');
-      const contactContainer = document.getElementById('contact-container');
+        // Clear artwork description
+        descEl.innerHTML = '';
 
-      if (type === 'about') {
-        aboutContainer.classList.remove('hidden');
-        contactContainer.classList.add('hidden');
-      } else if (type === 'contact') {
-        contactContainer.classList.remove('hidden');
-        aboutContainer.classList.add('hidden');
+        // Render About/Contact text
+        rightColumn.innerHTML = data.content;
       }
-
-      alignContent();
     }
 
-    function clearSelections() {
-      ['about', 'contact'].forEach(id => {
-        const el = document.getElementById(`nav-${id}`);
-        if (el) el.classList.remove('selected-italic');
-      });
-      works.forEach(w => {
-        const el = document.getElementById(`work-${w.id}`);
-        if (el) el.classList.remove('selected-italic');
-      });
-    }
-
-    // Initialize layout on load and resize
+    // Initialize layout and resize listeners
     window.addEventListener('DOMContentLoaded', () => {
-      selectWork('hirte');
-      alignContent();
+      syncHirtePosition();
+      selectItem('der-hirte');
     });
-    window.addEventListener('resize', alignContent);
+
+    window.addEventListener('resize', () => {
+      syncHirtePosition();
+      const activeArtwork = ['der-hirte', 'within-without-you', 'robert-und-das-huhn'].find(k => {
+        const el = document.getElementById(`work-${k}`);
+        return el && el.classList.contains('is-active');
+      });
+      if (activeArtwork) selectItem(activeArtwork);
+    });
   </script>
 </body>
 </html>
